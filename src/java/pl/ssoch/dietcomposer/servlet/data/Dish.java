@@ -5,19 +5,21 @@
  */
 package pl.ssoch.dietcomposer.servlet.data;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Seba
  */
 public class Dish {
-
     private final int id;
-
     private final String dishName;
-
-    public Dish(int id, String dishName) {
+    private ArrayList<DishComponent> dishComponentsList;
+    
+    public Dish(int id, String dishName, ArrayList<DishComponent> dishComponentsList) {
         this.id = id;
         this.dishName = dishName;
+        this.dishComponentsList = dishComponentsList;
     }
 
     public int getId() {
@@ -26,6 +28,10 @@ public class Dish {
 
     public String getDishName() {
         return dishName;
+    }
+
+    public ArrayList<DishComponent> getDishComponentsList() {
+        return dishComponentsList;
     }
     
     

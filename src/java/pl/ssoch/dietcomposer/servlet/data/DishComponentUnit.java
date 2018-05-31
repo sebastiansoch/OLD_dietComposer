@@ -5,12 +5,13 @@
  */
 package pl.ssoch.dietcomposer.servlet.data;
 
-import java.util.List;
-
 /**
  *
  * @author Seba
  */
-public interface DishesDAO {
-    List<Dish> getAllDishes();
+public enum DishComponentUnit {
+    GRAM,
+    NUMBER,
+    GLASS,
+    SLICE
 }

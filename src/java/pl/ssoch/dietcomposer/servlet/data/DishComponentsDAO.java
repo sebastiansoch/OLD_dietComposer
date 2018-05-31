@@ -11,6 +11,6 @@ import java.util.List;
  *
  * @author Seba
  */
-public interface DishesDAO {
-    List<Dish> getAllDishes();
+public interface DishComponentsDAO {
+    public List<DishComponent> getDishComponentsList();
 }

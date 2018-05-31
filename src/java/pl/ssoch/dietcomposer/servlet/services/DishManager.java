@@ -17,31 +17,28 @@ import pl.ssoch.dietcomposer.servlet.data.DishesDAOFake;
  * @author Seba
  */
 public class DishManager {
-    
+
     private DishesDAO dishes;
 
     public DishManager(DishesDAO dishes) {
         this.dishes = dishes;
     }
-    
-    
-    public List<String> getAllDishes() {
 
+    public List<String> getAllDishes() {
         ArrayList<String> dishesList = new ArrayList<>();
         for (Dish d : dishes.getAllDishes()) {
             dishesList.add(d.getDishName());
         }
         return dishesList;
     }
-    
+
     public String getDish(int id) {
         //Zwraca konkretne danie
         return null;
     }
-
+    
     public List<String> findDish(String phrase) {
         //Zwraca dania zawierajace dana fraze
         return null;
     }
-    
 }

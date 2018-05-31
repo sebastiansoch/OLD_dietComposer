@@ -17,7 +17,7 @@
         <h1>Menu Composer</h1>
         
         <c:forEach var="d" items="${dishes}" >
-            <a href="login?dish=${d}">${d}</a>
+            <a href="dishDetails?dish=${d}">${d}</a>
         </c:forEach>
         
     </body>

@@ -14,6 +14,5 @@
     <body>
         <jsp:include page="_menu.jsp"></jsp:include>
         <h1>Logowanie</h1>
-        ${param.dish}
     </body>
 </html>

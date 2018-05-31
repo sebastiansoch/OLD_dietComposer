@@ -5,12 +5,13 @@
  */
 package pl.ssoch.dietcomposer.servlet.data;
 
-import java.util.List;
-
 /**
  *
  * @author Seba
  */
-public interface DishesDAO {
-    List<Dish> getAllDishes();
+public enum DishComponentType {
+    FOOD,
+    NON_ALCOHOLIC_DRINK,
+    ALCOHOLIC_DRINK,
+    SNACK
 }

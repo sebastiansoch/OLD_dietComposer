@@ -5,7 +5,6 @@
  */
 package pl.ssoch.dietcomposer.servlet;
 
-import pl.ssoch.dietcomposer.servlet.data.FactoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,16 +14,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pl.ssoch.dietcomposer.servlet.data.Dish;
+import pl.ssoch.dietcomposer.servlet.data.DishComponentsDAO;
 import pl.ssoch.dietcomposer.servlet.data.DishesDAO;
-import pl.ssoch.dietcomposer.servlet.data.DishesDAOFake;
+import pl.ssoch.dietcomposer.servlet.data.FactoryDAO;
+import pl.ssoch.dietcomposer.servlet.services.DishComponentsManager;
 import pl.ssoch.dietcomposer.servlet.services.DishManager;
 
 /**
  *
  * @author Seba
  */
-@WebServlet(name = "MenuComposerServlet", urlPatterns = {"/menuComposer"})
-public class MenuComposerServlet extends HttpServlet {
+@WebServlet(name = "DishDetailsServlet", urlPatterns = {"/dishDetails"})
+public class DishDetailsServlet extends HttpServlet {
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -37,12 +40,13 @@ public class MenuComposerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DishesDAO dd = FactoryDAO.getDishesDAO();
-        DishManager dishes = new DishManager(dd);
-        List<String> dishesList = dishes.getAllDishes();
         
-        request.setAttribute("dishes", dishesList);
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/menuComposer.jsp");
+        DishComponentsDAO dc = FactoryDAO.getDishComponentsDAO();
+        DishComponentsManager dish = new DishComponentsManager(dc);
+        List<String> dishComponentsList = dish.getAllComponents();
+        
+        request.setAttribute("dishComponents", dishComponentsList);
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/dishDetails.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -64,7 +68,7 @@ public class MenuComposerServlet extends HttpServlet {
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
-     */   
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
