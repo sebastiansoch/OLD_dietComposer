@@ -5,6 +5,10 @@
  */
 package pl.ssoch.dietcomposer.servlet.data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author Seba
@@ -12,14 +16,15 @@ package pl.ssoch.dietcomposer.servlet.data;
 public class DishComponent {
     private int id;
     private String dishComponentName;
-    private DishComponentType dishComponentType;
+    private List<String> dishComponentType;
     private DishComponentUnit unit;
     private int caloriesPerUnit;
 
-    public DishComponent(int id, String dishComponentName, DishComponentType dishComponentType, DishComponentUnit unit, int caloriesPerUnit) {
+    public DishComponent(int id, String dishComponentName, DishComponentUnit unit, int caloriesPerUnit, String... type) {
         this.id = id;
         this.dishComponentName = dishComponentName;
-        this.dishComponentType = dishComponentType;
+        this.dishComponentType = new ArrayList<>();
+        addDishComponentType(type);
         this.unit = unit;
         this.caloriesPerUnit = caloriesPerUnit;
     }
@@ -32,8 +37,8 @@ public class DishComponent {
         return dishComponentName;
     }
 
-    public DishComponentType getDishComponentType() {
-        return dishComponentType;
+    public void addDishComponentType(String... type) {
+        dishComponentType.addAll(Arrays.asList(type));
     }
 
     public DishComponentUnit getUnit() {
@@ -44,4 +49,7 @@ public class DishComponent {
         return caloriesPerUnit;
     }
 
+    public boolean haveAllTypes(List<String> type) {
+        return dishComponentType.containsAll(type);
+    }
 }

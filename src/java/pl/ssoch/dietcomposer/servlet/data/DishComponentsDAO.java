@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface DishComponentsDAO {
     public List<DishComponent> getDishComponentsList();
+    
+    public List<DishComponent> getDishComponentsList(List<String> types);
 }

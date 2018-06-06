@@ -13,14 +13,30 @@ import java.util.List;
  * @author Seba
  */
 public class DishComponentsDAOFake implements DishComponentsDAO {
+    private ArrayList<DishComponent> dishComponents = new ArrayList<>();
 
+    public DishComponentsDAOFake() {
+        dishComponents.add(new DishComponent(0, "kawa", DishComponentUnit.GLASS, 50, "FOOD", "SNACK"));
+        dishComponents.add(new DishComponent(1, "chleb", DishComponentUnit.SLICE, 70));
+        dishComponents.add(new DishComponent(2, "szynka", DishComponentUnit.SLICE, 10));
+        dishComponents.add(new DishComponent(4, "maslo", DishComponentUnit.GRAM, 10));
+    }
+
+    
     @Override
     public List<DishComponent> getDishComponentsList() {
-        ArrayList<DishComponent> dishComponents = new ArrayList<>();
-        dishComponents.add(new DishComponent(0, "kawa", DishComponentType.NON_ALCOHOLIC_DRINK, DishComponentUnit.GLASS, 50));
-        dishComponents.add(new DishComponent(1, "chleb", DishComponentType.FOOD, DishComponentUnit.SLICE, 70));
-        dishComponents.add(new DishComponent(2, "szynka", DishComponentType.FOOD, DishComponentUnit.SLICE, 10));
-        dishComponents.add(new DishComponent(4, "maslo", DishComponentType.FOOD, DishComponentUnit.GRAM, 10));
+        
         return dishComponents;
+    }
+
+    @Override
+    public List<DishComponent> getDishComponentsList(List<String> types) {
+        List<DishComponent> components = new ArrayList<>();
+        for (DishComponent dc : dishComponents) {
+            if (dc.haveAllTypes(types)) {
+                components.add(dc);
+            }
+        }
+        return components;
     }
 }
