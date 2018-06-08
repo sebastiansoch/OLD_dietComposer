@@ -5,7 +5,7 @@
  */
 package pl.ssoch.dietcomposer.servlet;
 
-import pl.ssoch.dietcomposer.servlet.data.FactoryDAO;
+import pl.ssoch.dietcomposer.data.FactoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,9 +15,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import pl.ssoch.dietcomposer.servlet.data.DishesDAO;
-import pl.ssoch.dietcomposer.servlet.data.DishesDAOFake;
-import pl.ssoch.dietcomposer.servlet.services.DishManager;
+import pl.ssoch.dietcomposer.data.DishesDAO;
+import pl.ssoch.dietcomposer.data.DishesDAOFake;
+import pl.ssoch.dietcomposer.services.DishManager;
 
 /**
  *

@@ -14,12 +14,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import pl.ssoch.dietcomposer.servlet.data.Dish;
-import pl.ssoch.dietcomposer.servlet.data.DishComponentsDAO;
-import pl.ssoch.dietcomposer.servlet.data.DishesDAO;
-import pl.ssoch.dietcomposer.servlet.data.FactoryDAO;
-import pl.ssoch.dietcomposer.servlet.services.DishComponentsManager;
-import pl.ssoch.dietcomposer.servlet.services.DishManager;
+import pl.ssoch.dietcomposer.data.Dish;
+import pl.ssoch.dietcomposer.data.DishComponentsDAO;
+import pl.ssoch.dietcomposer.data.DishesDAO;
+import pl.ssoch.dietcomposer.data.FactoryDAO;
+import pl.ssoch.dietcomposer.services.DishComponentsManager;
+import pl.ssoch.dietcomposer.services.DishManager;
 
 /**
  *

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.ssoch.dietcomposer.servlet.services;
+package pl.ssoch.dietcomposer.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import pl.ssoch.dietcomposer.servlet.data.DishComponent;
-import pl.ssoch.dietcomposer.servlet.data.DishComponentsDAO;
+import pl.ssoch.dietcomposer.data.DishComponent;
+import pl.ssoch.dietcomposer.data.DishComponentsDAO;
 
 /**
  *

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.ssoch.dietcomposer.servlet.data;
+package pl.ssoch.dietcomposer.data;
 
-import pl.ssoch.dietcomposer.servlet.data.DishesDAO;
-import pl.ssoch.dietcomposer.servlet.data.DishesDAOFake;
+import pl.ssoch.dietcomposer.data.DishesDAO;
+import pl.ssoch.dietcomposer.data.DishesDAOFake;
 
 /**
  *

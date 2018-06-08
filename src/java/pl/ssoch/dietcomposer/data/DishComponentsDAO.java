@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.ssoch.dietcomposer.servlet.data;
+package pl.ssoch.dietcomposer.data;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import java.util.List;
  *
  * @author Seba
  */
-public interface DishesDAO {
-    List<Dish> getAllDishes();
+public interface DishComponentsDAO {
+    public List<DishComponent> getDishComponentsList();
+    
+    public List<DishComponent> getDishComponentsList(List<String> types);
 }
