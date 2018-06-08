@@ -36,9 +36,13 @@ public class DishManager {
         //Zwraca konkretne danie
         return null;
     }
-    
+
     public List<String> findDish(String phrase) {
         //Zwraca dania zawierajace dana fraze
         return null;
+    }
+
+    public List<Dish> getAllDishesForMeal(String meal) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

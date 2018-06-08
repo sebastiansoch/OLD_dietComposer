@@ -6,33 +6,37 @@
 package pl.ssoch.dietcomposer.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
  * @author Seba
  */
 public class Dish {
-    private final int id;
     private final String dishName;
-    private ArrayList<DishComponent> dishComponentsList;
+    private final Set<DishType> dishType;
+    private List<DishItems> dishItems;
     
-    public Dish(int id, String dishName, ArrayList<DishComponent> dishComponentsList) {
-        this.id = id;
+    public Dish(String dishName, DishType... dishType) {
         this.dishName = dishName;
-        this.dishComponentsList = dishComponentsList;
+        this.dishType = new HashSet<>();
+        this.dishType.addAll(Arrays.asList(dishType));
     }
 
-    public int getId() {
-        return id;
+    public void setDishItems(List<DishItems> dishItems) {
+        this.dishItems = dishItems;
     }
 
+    
     public String getDishName() {
         return dishName;
     }
 
-    public ArrayList<DishComponent> getDishComponentsList() {
-        return dishComponentsList;
+    public List<DishItems> getDishItems() {
+        return dishItems;
     }
-    
     
 }

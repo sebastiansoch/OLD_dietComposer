@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.ssoch.dietcomposer.data;
+package pl.ssoch.dietcomposer.services;
 
 import java.util.List;
+import pl.ssoch.dietcomposer.data.Dish;
 
 /**
  *
- * @author Seba
+ * @author ssoch
  */
-public interface DishesDAO {
-    List<Dish> getAllDishesForType(DishType dishType);
+public interface MenuGenerator {
+    
+    public Menu createMenu(int calories);
 }

@@ -5,12 +5,15 @@
  */
 package pl.ssoch.dietcomposer.data;
 
-import java.util.List;
-
 /**
  *
- * @author Seba
+ * @author ssoch
  */
-public interface DishesDAO {
-    List<Dish> getAllDishesForType(DishType dishType);
+public enum DishType {
+    BREAKFAST,
+    SECOND_BREAKFAST,
+    SOUP,
+    MAIN_COURSE,
+    TEA,
+    SUPPER
 }

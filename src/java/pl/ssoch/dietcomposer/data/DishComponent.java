@@ -14,31 +14,18 @@ import java.util.List;
  * @author Seba
  */
 public class DishComponent {
-    private int id;
     private String dishComponentName;
-    private List<String> dishComponentType;
     private DishComponentUnit unit;
     private int caloriesPerUnit;
 
-    public DishComponent(int id, String dishComponentName, DishComponentUnit unit, int caloriesPerUnit, String... type) {
-        this.id = id;
+    public DishComponent(String dishComponentName, DishComponentUnit unit, int caloriesPerUnit) {
         this.dishComponentName = dishComponentName;
-        this.dishComponentType = new ArrayList<>();
-        addDishComponentType(type);
         this.unit = unit;
         this.caloriesPerUnit = caloriesPerUnit;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getDishComponentName() {
         return dishComponentName;
-    }
-
-    public void addDishComponentType(String... type) {
-        dishComponentType.addAll(Arrays.asList(type));
     }
 
     public DishComponentUnit getUnit() {
@@ -47,9 +34,5 @@ public class DishComponent {
 
     public int getCaloriesPerUnit() {
         return caloriesPerUnit;
-    }
-
-    public boolean haveAllTypes(List<String> type) {
-        return dishComponentType.containsAll(type);
     }
 }
