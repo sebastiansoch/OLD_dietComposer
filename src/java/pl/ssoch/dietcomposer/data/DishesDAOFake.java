@@ -24,51 +24,6 @@ public class DishesDAOFake implements DishesDAO {
     @Override
     public List<Dish> getAllDishesForType(DishType dishType) {
         return dishDB.get(dishType);
-        /*
-        List<Dish> dishes = new ArrayList<>();
-
-        switch (dishType) {
-            case BREAKFAST:
-                dishes.add(new Dish("owsianka"));
-                dishes.add(new Dish("jajecznia na boczku"));
-                dishes.add(new Dish("sok pomaranczowy"));
-                dishes.add(new Dish("herbata"));
-                dishes.add(new Dish("kawa"));
-                break;
-            case SECOND_BREAKFAST:
-                dishes.add(new Dish("kaszka"));
-                dishes.add(new Dish("kaszanka"));
-                dishes.add(new Dish("herbata"));
-                dishes.add(new Dish("sok pomaranczowy"));
-                break;
-            case SOUP:
-                dishes.add(new Dish("pomidorowa"));
-                dishes.add(new Dish("rosol"));
-                dishes.add(new Dish("ogorkowa"));
-                break;
-            case MAIN_COURSE:
-                dishes.add(new Dish("szabowy z ziemniakami"));
-                dishes.add(new Dish("mielony"));
-                dishes.add(new Dish("makaron z serem"));
-                break;
-            case TEA:
-                dishes.add(new Dish("jablko"));
-                dishes.add(new Dish("czekolada"));
-                dishes.add(new Dish("baton"));
-                break;
-            case SUPPER:
-                dishes.add(new Dish("parowki"));
-                dishes.add(new Dish("sok jablkowy"));
-                dishes.add(new Dish("herbata czarna"));
-                dishes.add(new Dish("woda"));
-                break;
-            default:
-                dishes = null;
-                break;
-        }
-
-        return dishes;
-         */
     }
 
     private HashMap< DishType, List< Dish>> prepateDishes() {
@@ -91,8 +46,9 @@ public class DishesDAOFake implements DishesDAO {
 
     private String[][] getBreakfastData() {
         String[][] data = new String[][]{
-            {"owsianka", "platki gorske", "150", "gram", "100"},
-            {"owsianka", "rodzynki", "200", "gram", "20"}
+            //dish     ,  component      ,  kcal ,  unit , amount
+            {"owsianka",  "platki gorske",  "150", "gram", "100"},
+            {"owsianka",  "rodzynki",       "200", "gram", "20"}
         };
         return data;
     }
