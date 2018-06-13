@@ -13,5 +13,7 @@ public enum DishComponentUnit {
     GRAM,
     NUMBER,
     GLASS,
-    SLICE
+    SLICE,
+    BOWL,
+    SPOON
 }
