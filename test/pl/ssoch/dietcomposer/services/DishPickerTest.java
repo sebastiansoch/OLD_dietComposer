@@ -14,6 +14,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import pl.ssoch.dietcomposer.data.Dish;
+import pl.ssoch.dietcomposer.data.DishComponent;
+import pl.ssoch.dietcomposer.data.DishComponentUnit;
+import pl.ssoch.dietcomposer.data.DishItems;
 
 /**
  *
@@ -44,18 +47,43 @@ public class DishPickerTest {
     public void pickDishTest() {
         DishPicker dishPicker = new DishPicker();
         
-            assertFalse(!dishPicker.pickDishes(getDishes(), 20).isEmpty());
-        
+            assertFalse(dishPicker.pickDishes(getDishes(), 500).size() == 0);
+     int a  = 0;   
     }
 
     private List<Dish> getDishes() {
         List<Dish> dishes = new ArrayList<>();
-        dishes.add(new Dish("owsianka"));
-        dishes.add(new Dish("jajecznia na boczku"));
+
+        Dish owsianka = new Dish("owsianka");
+        owsianka.setDishItems(getDishItems("owsianka"));
+        dishes.add(owsianka);
+
+        Dish jajecznica = new Dish("jajecznia na boczku");
+        jajecznica.setDishItems(getDishItems("aa"));
+        dishes.add(jajecznica);
+        
+        
         dishes.add(new Dish("sok pomaranczowy"));
         dishes.add(new Dish("herbata"));
         dishes.add(new Dish("kawa"));
 
         return dishes;
+    }
+    
+    private List<DishItems> getDishItems(String dishName) {
+        List<DishItems> dishItems = new ArrayList<>();
+        if (dishName.equals("owsianka")) {
+            dishItems.add(new DishItems(new DishComponent("platki gorskie", DishComponentUnit.GRAM, 390), 100)); //390
+            dishItems.add(new DishItems(new DishComponent("jogurt", DishComponentUnit.GRAM, 60), 100));         //60
+            dishItems.add(new DishItems(new DishComponent("rodzynki", DishComponentUnit.GRAM, 298), 20));       //59,6
+            // SUMA -- 509,6
+        } else if (dishName.equals("jajecznia na boczku")) {
+            dishItems.add(new DishItems(new DishComponent("jajka", DishComponentUnit.NUMBER, 109), 2)); //208
+            dishItems.add(new DishItems(new DishComponent("bekon", DishComponentUnit.SLICE, 450), 2)); //900
+            dishItems.add(new DishItems(new DishComponent("chleb", DishComponentUnit.SLICE,  215), 1)); //215
+            dishItems.add(new DishItems(new DishComponent("masło", DishComponentUnit.GRAM, 735), 3)); //22,05
+        } //SUMA -- 1345,05
+        
+        return dishItems;
     }
 }

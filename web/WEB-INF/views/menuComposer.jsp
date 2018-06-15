@@ -16,9 +16,8 @@
         <jsp:include page="_menu.jsp"></jsp:include>
         <h1>Menu Composer</h1>
         
-        <c:forEach var="d" items="${dishes}" >
-            <a href="dishDetails?dish=${d}">${d}</a>
+        <c:forEach items="${dishList}" var="dish">
+            ${dish.dishName}<br />
         </c:forEach>
-        
     </body>
 </html>

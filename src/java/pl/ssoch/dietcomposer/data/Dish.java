@@ -24,12 +24,16 @@ public class Dish {
         this.dishName = dishName;
         this.dishType = new HashSet<>();
         this.dishType.addAll(Arrays.asList(dishType));
+        this.dishItems = new ArrayList<>();
     }
 
     public void setDishItems(List<DishItems> dishItems) {
         this.dishItems = dishItems;
     }
 
+    public void addDishItem(DishItems dishItem) {
+        this.dishItems.add(dishItem);
+    }
     
     public String getDishName() {
         return dishName;

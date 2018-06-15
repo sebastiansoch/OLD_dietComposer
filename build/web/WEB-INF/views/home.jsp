@@ -4,7 +4,9 @@
     Author     : Seba
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,8 +14,22 @@
         <title>JSP Page</title>
     </head>
     <body>
-                <jsp:include page="_menu.jsp"></jsp:include>
+        <jsp:include page="_menu.jsp"></jsp:include>
 
-        <h1>Hello World! JSP</h1>
+        <h1>Diet Composer</h1>
+
+        <form action="menuComposer">
+            Wybierz posiłek :
+            <select name="meal">
+                <c:forEach items="${dishType}" var ="type">
+                    <option value="${type.dishType}">${type.name}</option>
+                </c:forEach>
+            </select>
+            <br />
+            Wybierz ilość kalorii na dzień: 
+            <input type="text" name="calories"><br />
+            <input type="submit" value="Gneruj" />
+        </form>
+
     </body>
 </html>

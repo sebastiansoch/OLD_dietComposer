@@ -5,6 +5,7 @@
  */
 package pl.ssoch.dietcomposer.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import pl.ssoch.dietcomposer.data.Dish;
@@ -14,10 +15,15 @@ import pl.ssoch.dietcomposer.data.DishType;
  *
  * @author ssoch
  */
-class Menu {
-
+public class Menu {
+    private Map<DishType, List<Dish>> dishesPerType;
+    
     void setDishes(Map<DishType, List<Dish>> dishesPerType) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.dishesPerType = dishesPerType;
+    }
+
+    public List<Dish> getDishesForType(DishType dishType) {
+        return dishesPerType.get(dishType);
     }
     
 }

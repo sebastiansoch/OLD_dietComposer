@@ -16,7 +16,7 @@ import pl.ssoch.dietcomposer.data.DishItems;
  * @author ssoch
  */
 class DishPicker {
-    private double factor = 0;
+    private double factor = 0.1;
 
     public void setFactor(double factor) {
         this.factor = factor;
@@ -40,12 +40,14 @@ class DishPicker {
         return pickedDishes;
     }
 
+    //TODO -- sprawdzic implementacje (baza danych ma za duzo kalorii)
     private boolean checkDish(double calories, double calPerMeal) {
-        factor *= calPerMeal;
-        if ((calories < (calPerMeal - factor)) || (calories > (calPerMeal + factor))) {
-            return false;
-        }
-        
+//        double factorTmp = factor;
+//        factorTmp *= calPerMeal;
+//        if ((calories < (calPerMeal - factorTmp)) || (calories > (calPerMeal + factorTmp))) {
+//            return false;
+//        }
+//        
         return true;
     }
 

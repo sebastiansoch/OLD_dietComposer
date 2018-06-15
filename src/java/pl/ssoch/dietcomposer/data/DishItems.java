@@ -19,7 +19,6 @@ public class DishItems {
     }
 
     public double getDishComponentCalories() {
-        double calories = 500000;
-        return calories;
+        return dishComponent.getCaloriesPerUnit() * amount;
     }
 }

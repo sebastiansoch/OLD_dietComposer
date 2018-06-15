@@ -15,9 +15,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import pl.ssoch.dietcomposer.data.Dish;
+import pl.ssoch.dietcomposer.data.DishType;
 import pl.ssoch.dietcomposer.data.DishesDAO;
 import pl.ssoch.dietcomposer.data.DishesDAOFake;
 import pl.ssoch.dietcomposer.services.DishManager;
+import pl.ssoch.dietcomposer.services.Menu;
+import pl.ssoch.dietcomposer.services.MenuGenerator;
+import pl.ssoch.dietcomposer.services.MenuGeneratorImpl;
 
 /**
  *
@@ -37,11 +42,15 @@ public class MenuComposerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DishesDAO dd = FactoryDAO.getDishesDAO();
-        DishManager dishes = new DishManager(dd);
-        List<String> dishesList = dishes.getAllDishes();
         
-        request.setAttribute("dishes", dishesList);
+
+        MenuGenerator menuGen = FactoryDAO.getMenuGenerator();
+        Menu menu = menuGen.createMenu(Integer.parseInt(request.getParameter("calories")));
+        DishType dishType = DishType.valueOf(request.getParameter("meal"));
+        List<Dish> dishList = menu.getDishesForType(dishType);
+        
+        request.setAttribute("dishList", dishList);
+        
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/menuComposer.jsp");
         dispatcher.forward(request, response);
     }

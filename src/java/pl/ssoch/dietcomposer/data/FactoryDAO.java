@@ -7,6 +7,8 @@ package pl.ssoch.dietcomposer.data;
 
 import pl.ssoch.dietcomposer.data.DishesDAO;
 import pl.ssoch.dietcomposer.data.DishesDAOFake;
+import pl.ssoch.dietcomposer.services.MenuGenerator;
+import pl.ssoch.dietcomposer.services.MenuGeneratorImpl;
 
 /**
  *
@@ -20,5 +22,9 @@ public class FactoryDAO {
     
     public static DishComponentsDAO getDishComponentsDAO() {
         return new DishComponentsDAOFake();
+    }
+    
+    public static MenuGenerator getMenuGenerator() {
+        return new MenuGeneratorImpl(getDishesDAO());
     }
 }
