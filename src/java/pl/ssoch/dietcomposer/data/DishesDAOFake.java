@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -18,10 +19,10 @@ import java.util.Set;
  */
 public class DishesDAOFake implements DishesDAO {
 
-    private HashMap< DishType, List< Dish>> dishDB;
+    private HashMap<DishType, List< Dish>> dishDB;
 
     public DishesDAOFake() {
-        prepateDishes();
+        prepareDishes();
     }
 
     @Override
@@ -29,49 +30,49 @@ public class DishesDAOFake implements DishesDAO {
         return dishDB.get(dishType);
     }
 
-    private HashMap< DishType, List< Dish>> prepateDishes() {
+    private HashMap< DishType, List< Dish>> prepareDishes() {
         dishDB = new HashMap<>();
-        dishDB.put(DishType.BREAKFAST, createDishList(DishType.BREAKFAST, getBreakfastData()));
-        dishDB.put(DishType.SECOND_BREAKFAST, createDishList(DishType.SECOND_BREAKFAST, getSecondBreakfastData()));
-        dishDB.put(DishType.SOUP, createDishList(DishType.SOUP, getSoupData()));
-        dishDB.put(DishType.MAIN_COURSE, createDishList(DishType.MAIN_COURSE, getmainCourseData()));
-        dishDB.put(DishType.TEA, createDishList(DishType.TEA, getTeaData()));
-        dishDB.put(DishType.SUPPER, createDishList(DishType.SUPPER, getSupperData()));
+        dishDB.putAll(createDishList(DishType.BREAKFAST, getBreakfastData()));
+        dishDB.putAll(createDishList(DishType.SECOND_BREAKFAST, getSecondBreakfastData()));
+        dishDB.putAll(createDishList(DishType.SOUP, getSoupData()));
+        dishDB.putAll(createDishList(DishType.MAIN_COURSE, getmainCourseData()));
+        dishDB.putAll(createDishList(DishType.TEA, getTeaData()));
+        dishDB.putAll(createDishList(DishType.SUPPER, getSupperData()));
 
         return dishDB;
     }
 
-    List<Dish> createDishList(DishType dishType, String[][] dishData) {
+    Map<DishType, List<Dish>> createDishList(DishType dishType, String[][] dishData) {
+        Map<DishType, List<Dish>> dishesMap = new HashMap<>();
         List<Dish> dishes = new ArrayList<>();
-
-        Set<String> dishSet = new HashSet<>();
         for (String[] row : dishData) {
-            dishSet.add(row[0]);
-        }
+            int idx = dishes.indexOf(new Dish(row[0], dishType));
+            if (idx >= 0) {
+                Dish dish = dishes.get(idx);
+                dish.addDishItem(new DishItems(new DishComponent(row[1], decodeStringToEnum(row[3]), Integer.parseInt(row[2])), Integer.parseInt(row[4])));
+                dishes.set(idx, dish);
+            } else {
+                Dish dish = new Dish(row[0], dishType);
+                dish.addDishItem(new DishItems(new DishComponent(row[1], decodeStringToEnum(row[3]), Integer.parseInt(row[2])), Integer.parseInt(row[4])));
 
-        for (String s : dishSet) {
-            Dish dish = new Dish(s, dishType);
-            for (String[] row : dishData) {
-                if (s.equals(row[0])) {
-                    dish.addDishItem(new DishItems(new DishComponent(row[1], decodeStringToEnum(row[3]), Integer.parseInt(row[2])), Integer.parseInt(row[4])));
-                }
+                dishes.add(dish);
             }
-            dishes.add(dish);
         }
-
-        return dishes;
+        
+        dishesMap.put(dishType, dishes);
+        return dishesMap;
     }
 
     private String[][] getBreakfastData() {
         String[][] data = new String[][]{
             //dish     ,  component      ,  kcal ,  unit , amount
-            {"owsianka", "platki gorske",       "390", "gram", "100"},
-            {"owsianka", "jogurt",               "60", "gram", "100"},
-            {"owsianka", "rodzynki",            "298", "gram", "20"},
-            {"jajecznica z bekonem", "jajka",   "109", "number", "2"},
-            {"jajecznica z bekonem", "bekon",   "450", "slice", "2"},
-            {"jajecznica z bekonem", "chleb",   "215", "slice", "1"},
-            {"jajecznica z bekonem", "masło",   "735", "gram", "3"}
+            {"owsianka", "platki gorske", "390", "gram", "100"},
+            {"owsianka", "jogurt", "60", "gram", "100"},
+            {"owsianka", "rodzynki", "298", "gram", "20"},
+            {"jajecznica z bekonem", "jajka", "109", "number", "2"},
+            {"jajecznica z bekonem", "bekon", "450", "slice", "2"},
+            {"jajecznica z bekonem", "chleb", "215", "slice", "1"},
+            {"jajecznica z bekonem", "masło", "735", "gram", "3"}
         };
         return data;
     }
