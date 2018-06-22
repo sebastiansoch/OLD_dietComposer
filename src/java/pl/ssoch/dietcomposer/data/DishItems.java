@@ -18,6 +18,14 @@ public class DishItems {
         this.amount = amount;
     }
 
+    public DishComponent getDishComponent() {
+        return dishComponent;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
     public double getDishComponentCalories() {
         return dishComponent.getCaloriesPerUnit() * amount;
     }
