@@ -28,7 +28,7 @@
             <br />
             Wybierz ilość kalorii na dzień: 
             <input type="text" name="calories"><br />
-            <input type="submit" value="Gneruj" />
+            <input type="submit" value="Generuj" />
         </form>
 
     </body>

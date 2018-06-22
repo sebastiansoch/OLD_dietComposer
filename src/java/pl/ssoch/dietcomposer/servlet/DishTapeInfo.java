@@ -16,7 +16,7 @@ public class DishTapeInfo {
     private final DishType dishType;
     private final String name;
 
-    DishTapeInfo(DishType dishType, String name) {
+    public DishTapeInfo(DishType dishType, String name) {
         this.dishType = dishType;
         this.name = name;
         

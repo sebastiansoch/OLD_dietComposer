@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pl.ssoch.dietcomposer.data.DishType;
+import pl.ssoch.dietcomposer.data.HomeViewHelper;
 
 /**
  *
@@ -36,19 +37,13 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        List<DishTapeInfo> meals = new ArrayList<>();
-        meals.add(new DishTapeInfo(DishType.BREAKFAST, "Sniadanie"));
-        meals.add(new DishTapeInfo(DishType.SECOND_BREAKFAST, "Drugie Sniadanie"));
-        meals.add(new DishTapeInfo(DishType.SOUP, "Zupa"));
-        meals.add(new DishTapeInfo(DishType.MAIN_COURSE, "Drugie danie"));
-        meals.add(new DishTapeInfo(DishType.TEA, "Podwieczorek"));
-        meals.add(new DishTapeInfo(DishType.SUPPER, "Kolacja"));
-        
-        
-       RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp");
-       request.setAttribute("dishType", meals);
-       
-       dispatcher.forward(request, response);
+        HomeViewHelper hvh = new HomeViewHelper();
+        List<DishTapeInfo> meals = hvh.getMeals();
+
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp");
+        request.setAttribute("dishType", meals);
+
+        dispatcher.forward(request, response);
     }
 
     /**

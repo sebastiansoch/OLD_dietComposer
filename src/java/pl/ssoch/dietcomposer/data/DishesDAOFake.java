@@ -32,35 +32,39 @@ public class DishesDAOFake implements DishesDAO {
 
     private HashMap< DishType, List< Dish>> prepareDishes() {
         dishDB = new HashMap<>();
-        dishDB.putAll(createDishList(DishType.BREAKFAST, getBreakfastData()));
-        dishDB.putAll(createDishList(DishType.SECOND_BREAKFAST, getSecondBreakfastData()));
-        dishDB.putAll(createDishList(DishType.SOUP, getSoupData()));
-        dishDB.putAll(createDishList(DishType.MAIN_COURSE, getmainCourseData()));
-        dishDB.putAll(createDishList(DishType.TEA, getTeaData()));
-        dishDB.putAll(createDishList(DishType.SUPPER, getSupperData()));
+        dishDB.putAll(createDishes(DishType.BREAKFAST, getBreakfastData()));
+        dishDB.putAll(createDishes(DishType.SECOND_BREAKFAST, getSecondBreakfastData()));
+        dishDB.putAll(createDishes(DishType.SOUP, getSoupData()));
+        dishDB.putAll(createDishes(DishType.MAIN_COURSE, getmainCourseData()));
+        dishDB.putAll(createDishes(DishType.TEA, getTeaData()));
+        dishDB.putAll(createDishes(DishType.SUPPER, getSupperData()));
 
         return dishDB;
     }
 
-    Map<DishType, List<Dish>> createDishList(DishType dishType, String[][] dishData) {
-        Map<DishType, List<Dish>> dishesMap = new HashMap<>();
-        List<Dish> dishes = new ArrayList<>();
+    Map<String, Dish> prepareDishesMap(DishType dishType, String[][] dishData) {
+        Map<String, Dish> dishesMap = new HashMap<>();
         for (String[] row : dishData) {
-            int idx = dishes.indexOf(new Dish(row[0], dishType));
-            if (idx >= 0) {
-                Dish dish = dishes.get(idx);
-                dish.addDishItem(new DishItems(new DishComponent(row[1], decodeStringToEnum(row[3]), Integer.parseInt(row[2])), Integer.parseInt(row[4])));
-                dishes.set(idx, dish);
-            } else {
-                Dish dish = new Dish(row[0], dishType);
-                dish.addDishItem(new DishItems(new DishComponent(row[1], decodeStringToEnum(row[3]), Integer.parseInt(row[2])), Integer.parseInt(row[4])));
 
-                dishes.add(dish);
+            Dish dish = dishesMap.get(row[0]);
+            if (dish == null) {
+                dish = new Dish(row[0], dishType);
+                dishesMap.put(row[0], dish);
             }
+            dish.addDishItem(new DishItems(new DishComponent(row[1], decodeStringToEnum(row[3]), Integer.parseInt(row[2])), Integer.parseInt(row[4])));
         }
-        
-        dishesMap.put(dishType, dishes);
+
         return dishesMap;
+    }
+
+    Map<DishType, List<Dish>> createDishes(DishType dishType, String[][] dishData) {
+        Map<String, Dish> dishesMap = prepareDishesMap(dishType, dishData);
+        List<Dish> dishesList = new ArrayList<>();
+        dishesList.addAll(dishesMap.values());
+        Map<DishType, List<Dish>> dishes = new HashMap<>();
+        dishes.put(dishType, dishesList);
+        return dishes;
+
     }
 
     private String[][] getBreakfastData() {

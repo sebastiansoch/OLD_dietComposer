@@ -46,7 +46,7 @@ public class DishesDAOFakeTest {
     @Test
     public void pickDisches() {
         DishesDAOFake dishesDAO = new DishesDAOFake();
-        List<Dish> dishes = dishesDAO.createDishList(DishType.BREAKFAST, getTestData());
+        List<Dish> dishes = dishesDAO.createDishes(DishType.BREAKFAST, getTestData());
 
         assertEquals(2, dishes.size());
 

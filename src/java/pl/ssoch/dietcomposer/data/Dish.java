@@ -43,36 +43,4 @@ public class Dish {
     public List<DishItems> getDishItems() {
         return dishItems;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 13 * hash + Objects.hashCode(this.dishName);
-        hash = 13 * hash + Objects.hashCode(this.dishType);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Dish other = (Dish) obj;
-        if (!Objects.equals(this.dishName, other.dishName)) {
-            return false;
-        }
-        if (!Objects.equals(this.dishType, other.dishType)) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-    
 }
