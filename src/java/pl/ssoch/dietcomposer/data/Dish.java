@@ -18,13 +18,13 @@ import java.util.Set;
  */
 public class Dish {
     private final String dishName;
-    private final Set<DishType> dishType;
+    private final Set<DishType> dishTypes;
     private List<DishItems> dishItems;
     
     public Dish(String dishName, DishType... dishType) {
         this.dishName = dishName;
-        this.dishType = new HashSet<>();
-        this.dishType.addAll(Arrays.asList(dishType));
+        this.dishTypes = new HashSet<>();
+        this.dishTypes.addAll(Arrays.asList(dishType));
         this.dishItems = new ArrayList<>();
     }
 
