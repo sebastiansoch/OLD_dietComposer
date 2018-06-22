@@ -11,6 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script>
+            function calculateCalories(sufix, calPerUnit) {
+                document.getElementById("calories_" + sufix).innerHTML = document.getElementById("amount_" + sufix).value * calPerUnit;
+            }
+        </script>
     </head>
     <body>
         <jsp:include page="_menu.jsp"></jsp:include>
@@ -33,15 +38,12 @@
 
                         <tr>
                             <td>${dishItems.dishComponent.dishComponentName}</td>
-                            <td><input type="number" id="amount_${sufix}" value="${dishItems.amount}" /></td>
+                            <td><input type="number" id="amount_${sufix}" value="${dishItems.amount}" onchange="calculateCalories(${sufix}, ${dishItems.dishComponent.caloriesPerUnit})" /></td>
                             <td>${dishItems.dishComponent.unit}</td>
                             <td>${dishItems.dishComponent.caloriesPerUnit}</td>
-                            <td><input type="number" id="calories_${sufix}" value="" /></td>
+                            <td id="calories_${sufix}">${dishItems.amount * dishItems.dishComponent.caloriesPerUnit}</td>
                         </tr>
                         
-                        <script>
-                                document.getElementById("calories_${sufix}").value = document.getElementById("amount_${sufix}").value * ${dishItems.dishComponent.caloriesPerUnit};
-                        </script>
                     </c:forEach>
                 </table>                
                 <input type="submit" name="Zapisz posiłek" />
