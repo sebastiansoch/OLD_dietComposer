@@ -6,9 +6,10 @@
 package pl.ssoch.dietcomposer.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import pl.ssoch.dietcomposer.data.Dish;
-import pl.ssoch.dietcomposer.data.DishComponent;
 import pl.ssoch.dietcomposer.data.DishItems;
 
 /**
@@ -22,8 +23,10 @@ class DishPicker {
         this.factor = factor;
     }
     
-    public List<Dish> pickDishes(List<Dish> dishList, double calPerMeal) {
-        List<Dish> pickedDishes = new ArrayList<>();
+    public Map<Condition, List<Dish>> pickDishes(List<Dish> dishList, double calPerMeal) {
+        Map<Condition, List<Dish>> dishes = new HashMap<>();
+        List<Dish> pickedDishesList = new ArrayList<>();
+        List<Dish> otherDishesList = new ArrayList<>();
 
         for (Dish d : dishList) {
             double calories = 0;
@@ -33,22 +36,31 @@ class DishPicker {
             }
 
             if (checkDish(calories, calPerMeal)) {
-                pickedDishes.add(d);
+                pickedDishesList.add(d);
+            } else {
+                otherDishesList.add(d);
             }
-        }
 
-        return pickedDishes;
+        }
+        dishes.put(Condition.MET_CONDITIONS, pickedDishesList);
+        dishes.put(Condition.NOT_MET_CONDITIONS, otherDishesList);
+
+        return dishes;
     }
 
-    //TODO -- sprawdzic implementacje (baza danych ma za duzo kalorii)
     private boolean checkDish(double calories, double calPerMeal) {
-//        double factorTmp = factor;
-//        factorTmp *= calPerMeal;
-//        if ((calories < (calPerMeal - factorTmp)) || (calories > (calPerMeal + factorTmp))) {
-//            return false;
-//        }
-//        
+        double factorTmp = factor;
+        factorTmp *= calPerMeal;
+        if ((calories < (calPerMeal - factorTmp)) || (calories > (calPerMeal + factorTmp))) {
+            return false;
+        }
+        
         return true;
     }
 
+}
+
+enum Condition {
+    MET_CONDITIONS,
+    NOT_MET_CONDITIONS
 }

@@ -15,6 +15,9 @@
             function calculateCalories(sufix, calPerUnit) {
                 document.getElementById("calories_" + sufix).innerHTML = document.getElementById("amount_" + sufix).value * calPerUnit;
             }
+            function calculateCalPerMeal(sumPerMeal, sufix) {
+                document.getElementById("sum_").innerHTML = sumPerMeal + document.getElementById("calories_" + sufix).value;
+            }
         </script>
     </head>
     <body>
@@ -22,6 +25,7 @@
             <h1>Menu Composer</h1>
 
         <c:forEach items="${dishList}" var="dish" varStatus="dishStatus">
+            <c:set var="sumPerMeal" value="0" />
             <form>
                 <h2>${dish.dishName}</h2>
                 Składniki:<br />
@@ -41,9 +45,8 @@
                             <td><input type="number" id="amount_${sufix}" value="${dishItems.amount}" onchange="calculateCalories(${sufix}, ${dishItems.dishComponent.caloriesPerUnit})" /></td>
                             <td>${dishItems.dishComponent.unit}</td>
                             <td>${dishItems.dishComponent.caloriesPerUnit}</td>
-                            <td id="calories_${sufix}">${dishItems.amount * dishItems.dishComponent.caloriesPerUnit}</td>
+                            <td id="calories_${sufix}" onchange="">${dishItems.amount * dishItems.dishComponent.caloriesPerUnit}</td>
                         </tr>
-                        
                     </c:forEach>
                 </table>                
                 <input type="submit" name="Zapisz posiłek" />

@@ -16,9 +16,9 @@ import java.util.List;
 public class DishComponent {
     private String dishComponentName;
     private DishComponentUnit unit;
-    private int caloriesPerUnit;
+    private double caloriesPerUnit;
 
-    public DishComponent(String dishComponentName, DishComponentUnit unit, int caloriesPerUnit) {
+    public DishComponent(String dishComponentName, DishComponentUnit unit, double caloriesPerUnit) {
         this.dishComponentName = dishComponentName;
         this.unit = unit;
         this.caloriesPerUnit = caloriesPerUnit;
@@ -32,7 +32,7 @@ public class DishComponent {
         return unit;
     }
 
-    public int getCaloriesPerUnit() {
+    public double getCaloriesPerUnit() {
         return caloriesPerUnit;
     }
 }

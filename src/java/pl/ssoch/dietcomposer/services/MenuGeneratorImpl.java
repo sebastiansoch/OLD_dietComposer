@@ -22,7 +22,7 @@ import pl.ssoch.dietcomposer.data.FactoryDAO;
 public class MenuGeneratorImpl implements MenuGenerator {
 
     private final Map<DishType, Double> percentForType = new LinkedHashMap<>();
-    private Map<DishType, List<Dish>> dishesPerType = new HashMap<>();
+    private Map<Condition, Map<DishType, List<Dish>>> dishesForMeal = new HashMap<>();
     private DishesDAO dishes;
 
     public MenuGeneratorImpl(DishesDAO dishes) {
@@ -41,19 +41,32 @@ public class MenuGeneratorImpl implements MenuGenerator {
         Menu menu = new Menu();
 
         for (DishType dt : percentForType.keySet()) {
-            dishesPerType.put(dt, getDishesForType(dt, percentForType.get(dt) * calories));
+           dishesForMeal.putAll(getDishesForType(dt, percentForType.get(dt) * calories));
         }
-        
-        menu.setDishes(dishesPerType);
+
+        for (Condition con : dishesForMeal.keySet()) {
+            if (con.equals(Condition.MET_CONDITIONS)) {
+                menu.setMetConditionsDishes(dishesForMeal.get(con));    
+            } else {
+                menu.setNotMetConditionsDishes(dishesForMeal.get(con));    
+            }
+        }
         return menu;
     }
 
-    private List<Dish> getDishesForType(DishType dishType, double calPerMeal) {
+    private Map<Condition, Map<DishType, List<Dish>>> getDishesForType(DishType dishType, double calPerMeal) {
+        Map<Condition, Map<DishType, List<Dish>>> dishesMAp =  new HashMap<>();
         List<Dish> dishList = dishes.getAllDishesForType(dishType);
         DishPicker dishPicker = new DishPicker();
-        List<Dish> pickedDishes = dishPicker.pickDishes(dishList, calPerMeal);
+        Map<Condition, List<Dish>> dishesMap = dishPicker.pickDishes(dishList, calPerMeal);
+        
+        for (Condition key : dishesMap.keySet()) {
+            Map<DishType, List<Dish>> dishesPerType = new HashMap<>();
+            dishesPerType.put(dishType, dishesMap.get(key));
+            dishesMAp.put(key, dishesPerType);
+        }
 
-        return pickedDishes;
+        return dishesMAp;
     }
 
 }

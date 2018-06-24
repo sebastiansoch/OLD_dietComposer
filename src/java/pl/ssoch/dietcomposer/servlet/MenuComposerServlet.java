@@ -23,6 +23,7 @@ import pl.ssoch.dietcomposer.services.DishManager;
 import pl.ssoch.dietcomposer.services.Menu;
 import pl.ssoch.dietcomposer.services.MenuGenerator;
 import pl.ssoch.dietcomposer.services.MenuGeneratorImpl;
+import pl.ssoch.dietcomposer.view.MenuComposerViewHelper;
 
 /**
  *
@@ -42,12 +43,13 @@ public class MenuComposerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
 
-        MenuGenerator menuGen = FactoryDAO.getMenuGenerator();
-        Menu menu = menuGen.createMenu(Integer.parseInt(request.getParameter("calories")));
+        int calories = Integer.parseInt(request.getParameter("calories"));
         DishType dishType = DishType.valueOf(request.getParameter("meal"));
-        List<Dish> dishList = menu.getDishesForType(dishType);
+        MenuComposerViewHelper mcvh = new MenuComposerViewHelper(dishType, calories);
+        
+        mcvh.getMetConditionsDishesInfo();
+        mcvh.getNotMetConditionsDishesInfo();
         
         request.setAttribute("dishList", dishList);
         

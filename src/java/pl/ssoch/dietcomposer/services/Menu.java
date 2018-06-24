@@ -16,14 +16,22 @@ import pl.ssoch.dietcomposer.data.DishType;
  * @author ssoch
  */
 public class Menu {
-    private Map<DishType, List<Dish>> dishesPerType;
+    private Map<DishType, List<Dish>> metConditionsDishes;
+    private Map<DishType, List<Dish>> notMetConditionsDishes;
     
-    void setDishes(Map<DishType, List<Dish>> dishesPerType) {
-        this.dishesPerType = dishesPerType;
+    public void setMetConditionsDishes(Map<DishType, List<Dish>> dishesPerType) {
+        this.metConditionsDishes.putAll(dishesPerType);
     }
 
-    public List<Dish> getDishesForType(DishType dishType) {
-        return dishesPerType.get(dishType);
+    public void setNotMetConditionsDishes(Map<DishType, List<Dish>> dishesPerType) {
+        this.notMetConditionsDishes.putAll(dishesPerType);
     }
     
+    public List<Dish> getMetConditionDishes(DishType dishType) {
+        return metConditionsDishes.get(dishType);
+    }
+    
+    public List<Dish> getNotMetConditionDishes(DishType dishType) {
+        return notMetConditionsDishes.get(dishType);
+    }
 }
