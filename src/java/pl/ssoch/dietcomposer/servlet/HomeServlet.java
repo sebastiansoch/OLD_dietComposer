@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pl.ssoch.dietcomposer.data.DishType;
-import pl.ssoch.dietcomposer.view.HomeViewHelper;
+import pl.ssoch.dietcomposer.viewhelper.HomeViewHelper;
 
 /**
  *

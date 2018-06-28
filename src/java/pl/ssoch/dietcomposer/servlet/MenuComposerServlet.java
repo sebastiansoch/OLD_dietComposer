@@ -23,7 +23,7 @@ import pl.ssoch.dietcomposer.services.DishManager;
 import pl.ssoch.dietcomposer.services.Menu;
 import pl.ssoch.dietcomposer.services.MenuGenerator;
 import pl.ssoch.dietcomposer.services.MenuGeneratorImpl;
-import pl.ssoch.dietcomposer.view.MenuComposerViewHelper;
+import pl.ssoch.dietcomposer.viewhelper.MenuComposerViewHelper;
 
 /**
  *
@@ -48,10 +48,8 @@ public class MenuComposerServlet extends HttpServlet {
         DishType dishType = DishType.valueOf(request.getParameter("meal"));
         MenuComposerViewHelper mcvh = new MenuComposerViewHelper(dishType, calories);
         
-        mcvh.getMetConditionsDishesInfo();
-        mcvh.getNotMetConditionsDishesInfo();
-        
-        request.setAttribute("dishList", dishList);
+        request.setAttribute("dishMetCondition", mcvh.getMetConditionsDishesInfo());
+        request.setAttribute("dishNotMetCondition", mcvh.getNotMetConditionsDishesInfo());
         
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/menuComposer.jsp");
         dispatcher.forward(request, response);

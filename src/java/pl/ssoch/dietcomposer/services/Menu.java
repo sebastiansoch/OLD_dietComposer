@@ -6,6 +6,7 @@
 package pl.ssoch.dietcomposer.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import pl.ssoch.dietcomposer.data.Dish;
@@ -18,6 +19,11 @@ import pl.ssoch.dietcomposer.data.DishType;
 public class Menu {
     private Map<DishType, List<Dish>> metConditionsDishes;
     private Map<DishType, List<Dish>> notMetConditionsDishes;
+    
+    public Menu() {
+        metConditionsDishes = new HashMap<>();
+        notMetConditionsDishes = new HashMap<>();
+    }
     
     public void setMetConditionsDishes(Map<DishType, List<Dish>> dishesPerType) {
         this.metConditionsDishes.putAll(dishesPerType);
