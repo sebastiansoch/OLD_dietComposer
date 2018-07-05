@@ -18,13 +18,14 @@ import pl.ssoch.dietcomposer.data.DishItems;
  */
 class DishPicker {
     private double factor = 0.1;
-
+    
     public void setFactor(double factor) {
         this.factor = factor;
     }
     
     public Map<Condition, List<Dish>> pickDishes(List<Dish> dishList, double calPerMeal) {
         Map<Condition, List<Dish>> dishes = new HashMap<>();
+
         List<Dish> pickedDishesList = new ArrayList<>();
         List<Dish> otherDishesList = new ArrayList<>();
 
@@ -40,8 +41,8 @@ class DishPicker {
             } else {
                 otherDishesList.add(d);
             }
-
         }
+
         dishes.put(Condition.MET_CONDITIONS, pickedDishesList);
         dishes.put(Condition.NOT_MET_CONDITIONS, otherDishesList);
 
@@ -57,7 +58,6 @@ class DishPicker {
         
         return true;
     }
-
 }
 
 enum Condition {

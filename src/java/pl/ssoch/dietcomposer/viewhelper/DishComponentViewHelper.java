@@ -5,6 +5,7 @@
  */
 package pl.ssoch.dietcomposer.viewhelper;
 
+import pl.ssoch.dietcomposer.data.DishComponentUnit;
 import pl.ssoch.dietcomposer.data.DishItems;
 
 /**
@@ -27,7 +28,30 @@ public class DishComponentViewHelper {
     private void prepareInfo() {
         dishAmount = dishItem.getAmount();
         dishCompName = dishItem.getDishComponent().getDishComponentName();
-        dishCompUnit = dishItem.getDishComponent().getUnit().toString();
+
+        DishComponentUnit unit = dishItem.getDishComponent().getUnit();
+        switch (unit) {
+            case GRAM:
+                dishCompUnit = "gram";
+                break;
+            case BOWL:
+                dishCompUnit = "miska";
+                break;
+            case GLASS:
+                dishCompUnit = "szklanka";
+                break;
+            case NUMBER:
+                dishCompUnit = "sztuk";
+                break;
+            case SLICE:
+                dishCompUnit = "plasterek";
+                break;
+            case SPOON:
+                dishCompUnit = "łyżka";
+                break;
+        }
+
+//        dishCompUnit = dishItem.getDishComponent().getUnit().toString();
         calPerUnit = dishItem.getDishComponent().getCaloriesPerUnit();
     }
 

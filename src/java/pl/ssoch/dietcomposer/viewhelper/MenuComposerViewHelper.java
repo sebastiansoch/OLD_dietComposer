@@ -31,15 +31,12 @@ public class MenuComposerViewHelper {
     private void prepareView(DishType dishType, int calories) {
         MenuGenerator menuGen = FactoryDAO.getMenuGenerator();
         Menu menu = menuGen.createMenu(calories);
-        List<Dish> ddd = menu.getMetConditionDishes(dishType);
-        
-        int aa= 0;
-        
+
         for (Dish dish : menu.getMetConditionDishes(dishType)) {
             DishViewHelper dvi = new DishViewHelper(dish);
             dishesMetConditions.add(dvi);
         }
-        
+
         for (Dish dish : menu.getNotMetConditionDishes(dishType)) {
             DishViewHelper dvi = new DishViewHelper(dish);
             dishesNotMetConditions.add(dvi);

@@ -12,8 +12,6 @@ import java.util.Map;
 import pl.ssoch.dietcomposer.data.Dish;
 import pl.ssoch.dietcomposer.data.DishType;
 import pl.ssoch.dietcomposer.data.DishesDAO;
-import pl.ssoch.dietcomposer.data.DishesDAOFake;
-import pl.ssoch.dietcomposer.data.FactoryDAO;
 
 /**
  *
@@ -40,33 +38,21 @@ public class MenuGeneratorImpl implements MenuGenerator {
     public Menu createMenu(int calories) {
         Menu menu = new Menu();
 
-        for (DishType dt : percentForType.keySet()) {
-           dishesForMeal.putAll(getDishesForType(dt, percentForType.get(dt) * calories));
-        }
+        for (DishType dishType : percentForType.keySet()) {
+            List<Dish> dishesList = dishes.getAllDishesForType(dishType);
 
-        for (Condition con : dishesForMeal.keySet()) {
-            if (con.equals(Condition.MET_CONDITIONS)) {
-                menu.setMetConditionsDishes(dishesForMeal.get(con));    
-            } else {
-                menu.setNotMetConditionsDishes(dishesForMeal.get(con));    
-            }
+            DishPicker dishPicker = new DishPicker();
+            Map<Condition, List<Dish>> pickedDishes = dishPicker.pickDishes(dishesList, percentForType.get(dishType) * calories);
+            
+            Map<DishType, List<Dish>> tmp = new HashMap<>();
+            tmp.put(dishType, pickedDishes.get(Condition.MET_CONDITIONS));
+            menu.setMetConditionsDishes(tmp);
+            tmp.clear();
+            tmp.put(dishType, pickedDishes.get(Condition.NOT_MET_CONDITIONS));
+            menu.setNotMetConditionsDishes(tmp);
         }
         return menu;
     }
 
-    private Map<Condition, Map<DishType, List<Dish>>> getDishesForType(DishType dishType, double calPerMeal) {
-        Map<Condition, Map<DishType, List<Dish>>> dishesMAp =  new HashMap<>();
-        List<Dish> dishList = dishes.getAllDishesForType(dishType);
-        DishPicker dishPicker = new DishPicker();
-        Map<Condition, List<Dish>> dishesMap = dishPicker.pickDishes(dishList, calPerMeal);
-        
-        for (Condition key : dishesMap.keySet()) {
-            Map<DishType, List<Dish>> dishesPerType = new HashMap<>();
-            dishesPerType.put(dishType, dishesMap.get(key));
-            dishesMAp.put(key, dishesPerType);
-        }
-
-        return dishesMAp;
-    }
 
 }

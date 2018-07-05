@@ -5,14 +5,10 @@
  */
 package pl.ssoch.dietcomposer.services;
 
-import java.util.List;
-import pl.ssoch.dietcomposer.data.Dish;
-
 /**
  *
  * @author ssoch
  */
 public interface MenuGenerator {
-    
     public Menu createMenu(int calories);
 }
