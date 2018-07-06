@@ -22,13 +22,14 @@
             Wybierz posiłek :
             <select name="meal">
                 <c:forEach items="${dishType}" var ="type">
-                    <option value="${type.dishType}">${type.name}</option>
+                    <option value="${type}">${type}</option>
                 </c:forEach>
             </select>
             <br />
             Wybierz ilość kalorii na dzień: 
             <input type="text" name="calories"><br />
             <input type="submit" value="Generuj" />
+            <input type="submit" value="Przydział kal." />
         </form>
 
     </body>

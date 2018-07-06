@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/dietComposer"/>
+<Context path="/dietComposer"> 
+    <Resource
+        name="jdbc/dietcomposer" type="javax.sql.DataSource"
+        maxActive="100" maxIdle="30" maxWait="10000" 
+        url="jdbc:mysql://localhost:3306/dietcomposer?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Berlin"
+        driverClassName="com.mysql.jdbc.Driver"
+        username="seba" password="Dupa12"
+    />
+</Context>

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import pl.ssoch.dietcomposer.data.Dish;
 import pl.ssoch.dietcomposer.data.DishType;
-import pl.ssoch.dietcomposer.data.FactoryDAO;
+import pl.ssoch.dietcomposer.data.FactoryDAOFake;
 import pl.ssoch.dietcomposer.services.Menu;
 import pl.ssoch.dietcomposer.services.MenuGenerator;
 
@@ -29,7 +29,7 @@ public class MenuComposerViewHelper {
     }
 
     private void prepareView(DishType dishType, int calories) {
-        MenuGenerator menuGen = FactoryDAO.getMenuGenerator();
+        MenuGenerator menuGen = FactoryDAOFake.getMenuGenerator();
         Menu menu = menuGen.createMenu(calories);
 
         for (Dish dish : menu.getMetConditionDishes(dishType)) {

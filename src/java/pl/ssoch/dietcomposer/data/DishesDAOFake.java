@@ -67,13 +67,13 @@ public class DishesDAOFake implements DishesDAO {
     private String[][] getBreakfastData() {
         String[][] data = new String[][]{
             //dish     ,  component      ,      kcal/unit ,  unit , amount
-            {"owsianka", "platki gorske",        "3.90", "gram", "100"},
-            {"owsianka", "jogurt",               "0.60", "gram", "100"},
-            {"owsianka", "rodzynki",             "2.98", "gram", "20"},
-            {"jajecznica z bekonem", "jajka",   "70.78", "number", "3"},
-            {"jajecznica z bekonem", "bekon",   "67.50", "slice", "2"},
-            {"jajecznica z bekonem", "chleb",   "53.75", "slice", "1"},
-            {"jajecznica z bekonem", "masło",   "22.05", "gram", "3"}
+            {"owsianka", "platki gorske", "3.90", "gram", "100"},
+            {"owsianka", "jogurt", "0.60", "gram", "100"},
+            {"owsianka", "rodzynki", "2.98", "gram", "20"},
+            {"jajecznica z bekonem", "jajka", "70.78", "number", "3"},
+            {"jajecznica z bekonem", "bekon", "67.50", "slice", "2"},
+            {"jajecznica z bekonem", "chleb", "53.75", "slice", "1"},
+            {"jajecznica z bekonem", "masło", "22.05", "gram", "3"}
         };
         return data;
     }
@@ -81,16 +81,16 @@ public class DishesDAOFake implements DishesDAO {
     private String[][] getSecondBreakfastData() {
         String[][] data = new String[][]{
             //dish    ,                  component ,     kcal ,    unit     , amount
-            {"kanapka",                  "bułka",       "163.20",   "number",   "1"},
-            {"kanapka",                  "maslo",       "22.05",    "gram",     "3"},
-            {"kanapka",                  "ser zolty",   "47.10",    "slice",    "1"},
-            {"kanapka",                  "szynka",      "77.80",    "slice",    "1"},
-            {"kanapka",                  "jajko",       "70.78",    "number",   "1"},
-            {"jajecznica z pieczarkami", "jajka",       "70.78",    "number",   "2"},
-            {"jajecznica z pieczarkami", "pieczarki",   "0.24",     "gram",    "15"},
-            {"jajecznica z pieczarkami", "bekon",       "67.50",    "slice",    "2"},
-            {"jajecznica z pieczarkami", "chleb",       "53.75",    "slice",    "1"},
-            {"jajecznica z pieczarkami", "masło",       "22.05",    "gram",     "3"}
+            {"kanapka", "bułka", "163.20", "number", "1"},
+            {"kanapka", "maslo", "22.05", "gram", "3"},
+            {"kanapka", "ser zolty", "47.10", "slice", "1"},
+            {"kanapka", "szynka", "77.80", "slice", "1"},
+            {"kanapka", "jajko", "70.78", "number", "1"},
+            {"jajecznica z pieczarkami", "jajka", "70.78", "number", "2"},
+            {"jajecznica z pieczarkami", "pieczarki", "0.24", "gram", "15"},
+            {"jajecznica z pieczarkami", "bekon", "67.50", "slice", "2"},
+            {"jajecznica z pieczarkami", "chleb", "53.75", "slice", "1"},
+            {"jajecznica z pieczarkami", "masło", "22.05", "gram", "3"}
         };
         return data;
     }
@@ -98,9 +98,9 @@ public class DishesDAOFake implements DishesDAO {
     private String[][] getSoupData() {
         String[][] data = new String[][]{
             //dish       ,  component       ,  kcal ,  unit , amount
-            {"pomidorowa", "zupa pomidorowa",   "11.00", "bowl", "1"},
-            {"pomidorowa", "makaron",            "3.77", "gram", "50"},
-            {"pomidorowa", "śmietana 18%",      "46.50", "spoon", "1"}
+            {"pomidorowa", "zupa pomidorowa", "11.00", "bowl", "1"},
+            {"pomidorowa", "makaron", "3.77", "gram", "50"},
+            {"pomidorowa", "śmietana 18%", "46.50", "spoon", "1"}
         };
         return data;
     }
@@ -109,8 +109,8 @@ public class DishesDAOFake implements DishesDAO {
         String[][] data = new String[][]{
             //dish       ,  component       ,  kcal ,  unit , amount
             {"schabowy", "kotlet schabowy", "3.51", "gram", "100"},
-            {"schabowy", "ziemniaki",       "0.85", "gram", "200"},
-            {"schabowy", "ogorek kiszony",  "7.20", "number", "1"}
+            {"schabowy", "ziemniaki", "0.85", "gram", "200"},
+            {"schabowy", "ogorek kiszony", "7.20", "number", "1"}
         };
         return data;
     }
@@ -118,10 +118,10 @@ public class DishesDAOFake implements DishesDAO {
     private String[][] getTeaData() {
         String[][] data = new String[][]{
             //dish            ,  component , kcal ,  unit , amount
-            {"salatka owocowa", "jablko",    "90.00", "number", "1"},
-            {"salatka owocowa", "gruszka",   "75.00", "number", "1"},
-            {"salatka owocowa", "baban",    "116.00", "number", "1"},
-            {"salatka owocowa", "rodzynki",   "2.98", "gram", "20"}
+            {"salatka owocowa", "jablko", "90.00", "number", "1"},
+            {"salatka owocowa", "gruszka", "75.00", "number", "1"},
+            {"salatka owocowa", "baban", "116.00", "number", "1"},
+            {"salatka owocowa", "rodzynki", "2.98", "gram", "20"}
         };
         return data;
     }
@@ -129,13 +129,13 @@ public class DishesDAOFake implements DishesDAO {
     private String[][] getSupperData() {
         String[][] data = new String[][]{
             //dish               ,  component , kcal ,  unit , amount
-            {"naleśniki z dzemem",  "nalesnik",  "170.00", "number",    "1"},
-            {"naleśniki z dzemem",  "dzem",       "38.00", "spoon",     "1"},
-            {"kanapka",             "bułka",     "163.20", "number",    "1"},
-            {"kanapka",             "maslo",      "22.05", "gram",      "3"},
-            {"kanapka",             "ser zolty",  "47.10", "slice",     "1"},
-            {"kanapka",             "szynka",     "77.80", "slice",     "2"},
-            {"kanapka",             "jajko",      "70.78", "number",    "1"}
+            {"naleśniki z dzemem", "nalesnik", "170.00", "number", "1"},
+            {"naleśniki z dzemem", "dzem", "38.00", "spoon", "1"},
+            {"kanapka", "bułka", "163.20", "number", "1"},
+            {"kanapka", "maslo", "22.05", "gram", "3"},
+            {"kanapka", "ser zolty", "47.10", "slice", "1"},
+            {"kanapka", "szynka", "77.80", "slice", "2"},
+            {"kanapka", "jajko", "70.78", "number", "1"}
         };
         return data;
     }
@@ -157,5 +157,18 @@ public class DishesDAOFake implements DishesDAO {
             default:
                 throw new RuntimeException("Nie właściwy typ");
         }
+    }
+
+    @Override
+    public List<String> getDishTypes() {
+        List<String> types = new ArrayList<>();
+        types.add("Sniadanie");
+        types.add("Drugie Sniadanie");
+        types.add("Zupa");
+        types.add("Drugie danie");
+        types.add("Podwieczorek");
+        types.add("Kolacja");
+        
+        return types;
     }
 }

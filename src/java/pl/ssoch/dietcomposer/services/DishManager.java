@@ -24,9 +24,9 @@ public class DishManager {
 
     public List<String> getAllDishes() {
         ArrayList<String> dishesList = new ArrayList<>();
-        for (Dish d : dishes.getAllDishes()) {
-            dishesList.add(d.getDishName());
-        }
+//        for (Dish d : dishes.getAllDishes()) {
+//            dishesList.add(d.getDishName());
+//        }
         return dishesList;
     }
 

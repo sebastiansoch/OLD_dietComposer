@@ -6,13 +6,20 @@
 package pl.ssoch.dietcomposer.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import pl.ssoch.dietcomposer.data.FactoryDAOSql;
 import pl.ssoch.dietcomposer.viewhelper.HomeViewHelper;
 
 /**
@@ -21,6 +28,9 @@ import pl.ssoch.dietcomposer.viewhelper.HomeViewHelper;
  */
 @WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
 public class HomeServlet extends HttpServlet {
+
+    @Resource(name = "jdbc/dietcomposer")
+    private DataSource dataSource;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -35,8 +45,14 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        try {
+            FactoryDAOSql.setConnection(dataSource.getConnection());
+        } catch (SQLException ex) {
+            Logger.getLogger(HomeServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         HomeViewHelper hvh = new HomeViewHelper();
-        List<DishTapeInfo> meals = hvh.getMeals();
+        List<String> meals = hvh.getMeals();
 
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp");
         request.setAttribute("dishType", meals);
