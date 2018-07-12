@@ -44,21 +44,21 @@ public class DishesDAOFakeTest {
     // @Test
     // public void hello() {}
     @Test
-    public void pickDisches() {
-        DishesDAOFake dishesDAO = new DishesDAOFake();
-        List<Dish> dishes = dishesDAO.createDishes(DishType.BREAKFAST, getTestData());
-
-        assertEquals(2, dishes.size());
-
-        for (Dish d : dishes) {
-            if (d.getDishName().equals("owsianka")) {
-                assertEquals(3, d.getDishItems().size());
-            } else if (d.getDishName().equals("jajecznica z bekonem")) {
-                assertEquals(4, d.getDishItems().size());
-            }
-        }
-
-    }
+//    public void pickDisches() {
+//        DishesDAOFake dishesDAO = new DishesDAOFake();
+//        List<Dish> dishes = dishesDAO.createDishes(DishType.BREAKFAST, getTestData());
+//
+//        assertEquals(2, dishes.size());
+//
+//        for (Dish d : dishes) {
+//            if (d.getDishName().equals("owsianka")) {
+//                assertEquals(3, d.getDishItems().size());
+//            } else if (d.getDishName().equals("jajecznica z bekonem")) {
+//                assertEquals(4, d.getDishItems().size());
+//            }
+//        }
+//
+//    }
 
     private String[][] getTestData() {
         String[][] data = new String[][]{

@@ -12,7 +12,7 @@ import pl.ssoch.dietcomposer.services.MenuGeneratorImpl;
  *
  * @author Seba
  */
-public class FactoryDAO {
+public class FactoryDAOFake {
 
     public static DishesDAO getDishesDAO() {
         return new DishesDAOFake();

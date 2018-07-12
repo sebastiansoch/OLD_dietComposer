@@ -11,6 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        
+            
     </head>
     <body>
         <jsp:include page="_menu.jsp"></jsp:include>
@@ -45,8 +47,11 @@
                 <input type="submit" name="Zapisz posiłek" />
             </form>
         </c:forEach>
+
+        <c:if test="${dishNotMetCondition.size() > 0}" >
             <h1>##################################################################################################</h1>
-                    <c:forEach items="${dishNotMetCondition}" var="dish" varStatus="dishStatus">
+        </c:if>
+        <c:forEach items="${dishNotMetCondition}" var="dish" varStatus="dishStatus">
             <c:set var="sumPerMeal" value="0" />
             <form>
                 <h2>${dish.dishName}</h2>

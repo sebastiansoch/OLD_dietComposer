@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pl.ssoch.dietcomposer.data.DishComponentsDAO;
-import pl.ssoch.dietcomposer.data.FactoryDAO;
+import pl.ssoch.dietcomposer.data.FactoryDAOFake;
 import pl.ssoch.dietcomposer.services.DishComponentsManager;
 
 /**
@@ -37,7 +37,7 @@ public class DishDetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        DishComponentsDAO dc = FactoryDAO.getDishComponentsDAO();
+        DishComponentsDAO dc = FactoryDAOFake.getDishComponentsDAO();
         DishComponentsManager dish = new DishComponentsManager(dc);
         List<String> dishComponentsList = dish.getAllComponents();
         

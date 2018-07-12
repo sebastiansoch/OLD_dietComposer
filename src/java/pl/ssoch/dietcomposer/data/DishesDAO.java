@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface DishesDAO {
     List<Dish> getAllDishesForType(DishType dishType);
+    List<String> getDishTypes();
 }

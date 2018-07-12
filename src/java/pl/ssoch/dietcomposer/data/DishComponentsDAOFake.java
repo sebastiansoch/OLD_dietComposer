@@ -16,10 +16,10 @@ public class DishComponentsDAOFake implements DishComponentsDAO {
     private ArrayList<DishComponent> dishComponents = new ArrayList<>();
 
     public DishComponentsDAOFake() {
-        dishComponents.add(new DishComponent(0, "kawa", DishComponentUnit.GLASS, 50));
-        dishComponents.add(new DishComponent(1, "chleb", DishComponentUnit.SLICE, 70));
-        dishComponents.add(new DishComponent(2, "szynka", DishComponentUnit.SLICE, 10));
-        dishComponents.add(new DishComponent(4, "maslo", DishComponentUnit.GRAM, 10));
+//        dishComponents.add(new DishComponent(0, "kawa", DishComponentUnit.GLASS, 50));
+//        dishComponents.add(new DishComponent(1, "chleb", DishComponentUnit.SLICE, 70));
+//        dishComponents.add(new DishComponent(2, "szynka", DishComponentUnit.SLICE, 10));
+//        dishComponents.add(new DishComponent(4, "maslo", DishComponentUnit.GRAM, 10));
     }
 
     
@@ -32,11 +32,11 @@ public class DishComponentsDAOFake implements DishComponentsDAO {
     @Override
     public List<DishComponent> getDishComponentsList(List<String> types) {
         List<DishComponent> components = new ArrayList<>();
-        for (DishComponent dc : dishComponents) {
-            if (dc.haveAllTypes(types)) {
-                components.add(dc);
-            }
-        }
+//        for (DishComponent dc : dishComponents) {
+//            if (dc.haveAllTypes(types)) {
+//                components.add(dc);
+//            }
+//        }
         return components;
     }
 }
