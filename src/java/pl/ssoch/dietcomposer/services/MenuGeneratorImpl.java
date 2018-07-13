@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import pl.ssoch.dietcomposer.data.Dish;
 import pl.ssoch.dietcomposer.data.DishType;
-import pl.ssoch.dietcomposer.data.DishesDAO;
+import pl.ssoch.dietcomposer.dao.DishesDAO;
 
 /**
  *

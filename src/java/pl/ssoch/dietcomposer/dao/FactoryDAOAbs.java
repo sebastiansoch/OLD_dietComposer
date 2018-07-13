@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.ssoch.dietcomposer.data;
-
-import java.util.List;
+package pl.ssoch.dietcomposer.dao;
 
 /**
  *
- * @author Seba
+ * @author ssoch
  */
-public interface DishesDAO {
-    List<Dish> getAllDishesForType(DishType dishType);
-    List<String> getDishTypes();
+public class FactoryDAOAbs {
+    public static FactoryDAO getFactoryDAO() {
+        return FactoryDAOSql.getInstance();
+    }
 }

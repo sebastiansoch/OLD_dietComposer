@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.ssoch.dietcomposer.data;
+package pl.ssoch.dietcomposer.dao;
 
 import java.util.List;
+import pl.ssoch.dietcomposer.data.DishComponent;
 
 /**
  *

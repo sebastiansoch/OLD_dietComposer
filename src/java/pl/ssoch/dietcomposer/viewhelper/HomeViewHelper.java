@@ -5,17 +5,8 @@
  */
 package pl.ssoch.dietcomposer.viewhelper;
 
-import com.mysql.cj.api.mysqla.result.Resultset;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import pl.ssoch.dietcomposer.data.DishType;
-import pl.ssoch.dietcomposer.data.FactoryDAOFake;
-import pl.ssoch.dietcomposer.data.FactoryDAOSql;
-import pl.ssoch.dietcomposer.servlet.DishTapeInfo;
+import pl.ssoch.dietcomposer.dao.FactoryDAOAbs;
 
 /**
  *
@@ -24,7 +15,7 @@ import pl.ssoch.dietcomposer.servlet.DishTapeInfo;
 public class HomeViewHelper {
 
       public List<String> getMeals() {
-          return FactoryDAOSql.getInstance().getDishesDAO().getDishTypes();
+          return FactoryDAOAbs.getFactoryDAO().getDishesDAO().getDishTypes();
       }
       
       

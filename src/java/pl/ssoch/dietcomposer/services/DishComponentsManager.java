@@ -8,7 +8,7 @@ package pl.ssoch.dietcomposer.services;
 import java.util.ArrayList;
 import java.util.List;
 import pl.ssoch.dietcomposer.data.DishComponent;
-import pl.ssoch.dietcomposer.data.DishComponentsDAO;
+import pl.ssoch.dietcomposer.dao.DishComponentsDAO;
 
 /**
  *

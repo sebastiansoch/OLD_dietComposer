@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.ssoch.dietcomposer.data;
+package pl.ssoch.dietcomposer.dao;
 
 import pl.ssoch.dietcomposer.services.MenuGenerator;
 import pl.ssoch.dietcomposer.services.MenuGeneratorImpl;
@@ -12,17 +12,20 @@ import pl.ssoch.dietcomposer.services.MenuGeneratorImpl;
  *
  * @author Seba
  */
-public class FactoryDAOFake {
+public class FactoryDAOFake implements FactoryDAO {
 
-    public static DishesDAO getDishesDAO() {
+    @Override
+    public DishesDAO getDishesDAO() {
         return new DishesDAOFake();
     }
     
-    public static DishComponentsDAO getDishComponentsDAO() {
+    @Override
+    public DishComponentsDAO getDishComponentsDAO() {
         return new DishComponentsDAOFake();
     }
     
-    public static MenuGenerator getMenuGenerator() {
+    @Override
+    public MenuGenerator getMenuGenerator() {
         return new MenuGeneratorImpl(getDishesDAO());
     }
 }
