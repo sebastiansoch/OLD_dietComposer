@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import pl.ssoch.dietcomposer.data.Dish;
 import pl.ssoch.dietcomposer.data.DishComponent;
 import pl.ssoch.dietcomposer.data.DishComponentUnit;
@@ -35,31 +33,19 @@ public class DishesDAOSql implements DishesDAO {
 
     @Override
     public List<Dish> getAllDishesForType(DishType dishType) {
-        Map<Integer, String> dishes = new HashMap<>();
+        List<Dish> dishes = new ArrayList<>();
 
-        String sqlDishes = "SELECT d.dish_id, d.name FROM dishes d"
-                + " JOIN dishes_dish_types ddt ON d.dish_id = ddt.dish_id"
-                + " JOIN dish_types t ON t.dish_type_id = ddt.dish_type_id"
-                + " WHERE t.type = ?";
+        Map<Integer, String> dishesMap = findDishesForType(dishType);
 
-        try {
-            PreparedStatement statement = connection.prepareStatement(sqlDishes);
-            statement.setString(1, dishType.toString());
-            ResultSet rs = statement.executeQuery(sqlDishes);
+        prepareDishes(dishesMap, dishType, dishes);
 
-            while (rs.next()) {
-                dishes.put(Integer.parseInt("dish_id"), "name");
-            }
+        return dishes;
+    }
 
-        } catch (SQLException ex) {
-            //TODO
-            throw new RuntimeException(ex);
-        }
-
-        for (Integer id : dishes.keySet()) {
+    private void prepareDishes(Map<Integer, String> dishesMap, DishType dishType, List<Dish> dishes) throws RuntimeException {
+        for (int id : dishesMap.keySet()) {
             List<DishItems> dishItems = new ArrayList<>();
 
-            List<DishComponent> dishComponents = new ArrayList<>();
             String dishComponentName;
             DishComponentUnit unit;
             double caloriesPerUnit;
@@ -72,23 +58,50 @@ public class DishesDAOSql implements DishesDAO {
                         + " JOIN dishes d ON i.dish_id = d.dish_id"
                         + " JOIN dish_components c ON c.dish_component_id = i.dish_component_id"
                         + " JOIN units u ON u.unit_id = c.unit_id"
-                        + " WHERE i.dish_id = ?";
+                        + " WHERE i.dish_id = ? ";
 
                 PreparedStatement statement = connection.prepareStatement(sqlDI);
-                statement.setString(1, id.toString());
-                ResultSet rs = statement.executeQuery(sqlDI);
-                
-                while(rs.next()) {
-                    dishComponents.add(new DishComponent("c.name", DishComponentUnit.valueOf("u.name"), Double.parseDouble("calories_per_unit")));
-                
+                statement.setInt(1, id);
+                ResultSet rs = statement.executeQuery();
+
+                while (rs.next()) {
+                    DishComponent dc = new DishComponent(rs.getString("c.name"), DishComponentUnit.valueOf(rs.getString("u.name")), rs.getDouble("calories_per_unit"));
+                    dishItems.add(new DishItems(dc, rs.getInt("i.amount")));
                 }
-                
+
+                Dish dish = new Dish(dishesMap.get(id), dishType);
+                dish.setDishItems(dishItems);
+
+                dishes.add(dish);
             } catch (SQLException ex) {
                 //TODO
                 throw new RuntimeException(ex);
             }
-
         }
+    }
+
+    private Map<Integer, String> findDishesForType(DishType dishType) throws RuntimeException {
+        Map<Integer, String> dishes = new HashMap<>();
+
+        String sqlDishes = "SELECT d.dish_id, d.name FROM dishes d"
+                + " JOIN dishes_dish_types ddt ON d.dish_id = ddt.dish_id"
+                + " JOIN dish_types t ON t.dish_type_id = ddt.dish_type_id"
+                + " WHERE t.type = ?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sqlDishes);
+            statement.setString(1, dishType.toString());
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                dishes.put(Integer.parseInt(rs.getString("d.dish_id")), rs.getString("d.name"));
+            }
+
+        } catch (SQLException ex) {
+            //TODO
+            throw new RuntimeException(ex);
+        }
+        return dishes;
     }
 
     @Override

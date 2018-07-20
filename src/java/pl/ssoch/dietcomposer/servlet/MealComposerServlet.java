@@ -6,6 +6,8 @@
 package pl.ssoch.dietcomposer.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import pl.ssoch.dietcomposer.data.DishType;
-import pl.ssoch.dietcomposer.viewhelper.MenuComposerViewHelper;
+import pl.ssoch.dietcomposer.viewhelper.MealComposerViewHelper;
 
 /**
  *
  * @author Seba
  */
-@WebServlet(name = "MenuComposerServlet", urlPatterns = {"/menuComposer"})
-public class MenuComposerServlet extends HttpServlet {
+@WebServlet(name = "MealComposerServlet", urlPatterns = {"/mealComposer"})
+public class MealComposerServlet extends HttpServlet {
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -35,13 +37,14 @@ public class MenuComposerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         int calories = Integer.parseInt(request.getParameter("calories"));
-        DishType dishType = DishType.valueOf(request.getParameter("meal"));
-        MenuComposerViewHelper mcvh = new MenuComposerViewHelper(dishType, calories);
+        List<DishType> dishType = new ArrayList<>();
+        dishType.add(DishType.valueOf(request.getParameter("meal")));
+        MealComposerViewHelper mcvh = new MealComposerViewHelper(dishType, calories);
         
         request.setAttribute("dishMetCondition", mcvh.getMetConditionsDishesInfo());
         request.setAttribute("dishNotMetCondition", mcvh.getNotMetConditionsDishesInfo());
         
-        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/menuComposer.jsp");
+        RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/mealComposer.jsp");
         dispatcher.forward(request, response);
     }
 
