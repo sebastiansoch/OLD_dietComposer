@@ -3,8 +3,8 @@
     <Resource
         name="jdbc/dietcomposer" type="javax.sql.DataSource"
         maxActive="100" maxIdle="30" maxWait="10000" 
-        url="jdbc:mysql://localhost:3306/dietcomposer?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Berlin"
-        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/dietcomposer?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Berlin&amp;autoReconnect=true&amp;useSSL=false"
+        driverClassName="com.mysql.cj.jdbc.Driver"
         username="seba" password="Dupa12"
     />
 </Context>

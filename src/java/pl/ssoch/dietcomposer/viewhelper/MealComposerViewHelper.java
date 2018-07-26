@@ -21,8 +21,8 @@ import pl.ssoch.dietcomposer.services.MenuGenerator;
  */
 public class MealComposerViewHelper {
 
-    private Map<DishType, List<DishViewHelper>> dishesMetConditions;
-    private Map<DishType, List<DishViewHelper>> dishesNotMetConditions;
+    private Map<String, List<DishViewHelper>> dishesMetConditions;
+    private Map<String, List<DishViewHelper>> dishesNotMetConditions;
 
     public MealComposerViewHelper(List<DishType> dishTypeList, int calories) {
         dishesMetConditions = new HashMap<>();
@@ -35,26 +35,26 @@ public class MealComposerViewHelper {
         Menu menu = menuGen.createMenu(calories);
 
         for (DishType dishType : dishTypeList) {
-            List<DishViewHelper> dishViewHelpers = new ArrayList<>();
-
+            List<DishViewHelper> dvhMet = new ArrayList<>();
+            
             for (Dish dish : menu.getMetConditionDishes(dishType)) {
-                dishViewHelpers.add(new DishViewHelper(dish));
+                dvhMet.add(new DishViewHelper(dish));
             }
-            dishesMetConditions.put(dishType, dishViewHelpers);
+            dishesMetConditions.put(dishType.toString(), dvhMet);
 
-            dishViewHelpers.clear();
+            List<DishViewHelper> dvhNotMet = new ArrayList<>();
             for (Dish dish : menu.getNotMetConditionDishes(dishType)) {
-                DishViewHelper dvi = new DishViewHelper(dish);
+                dvhNotMet.add(new DishViewHelper(dish));
             }
-            dishesNotMetConditions.put(dishType, dishViewHelpers);
+            dishesNotMetConditions.put(dishType.toString(), dvhNotMet);
         }
     }
 
-    public Map<DishType, List<DishViewHelper>> getMetConditionsDishesInfo() {
+    public Map<String, List<DishViewHelper>> getMetConditionsDishesInfo() {
         return dishesMetConditions;
     }
 
-    public Map<DishType, List<DishViewHelper>> getNotMetConditionsDishesInfo() {
+    public Map<String, List<DishViewHelper>> getNotMetConditionsDishesInfo() {
         return dishesNotMetConditions;
     }
 

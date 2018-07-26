@@ -27,25 +27,25 @@ public abstract class MainServlet extends HttpServlet {
     private DataSource dataSource;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doProcess(req, resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doProcess(request, response);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doProcess(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doProcess(request, response);
     }
 
-    protected void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             FactoryDAOSql.setConnection(dataSource.getConnection());
         } catch (SQLException ex) {
             Logger.getLogger(HomeServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        run(req, resp);
+        run(request, response);
     }
 
-    protected abstract void run(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;
+    protected abstract void run(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
 }
