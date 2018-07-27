@@ -6,68 +6,39 @@
 package pl.ssoch.dietcomposer.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import pl.ssoch.dietcomposer.dao.DishComponentsDAO;
-import pl.ssoch.dietcomposer.dao.FactoryDAOAbs;
-import pl.ssoch.dietcomposer.services.DishComponentsManager;
+import javax.servlet.http.HttpSession;
+import pl.ssoch.dietcomposer.viewhelper.DishComponentViewHelper;
 
 /**
  *
  * @author Seba
  */
 @WebServlet(name = "DishDetailsServlet", urlPatterns = {"/dishDetails"})
-public class DishDetailsServlet extends HttpServlet {
+public class DishDetailsServlet extends MainServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void run(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String pickedDish = request.getParameter("pickedDish");
         
-        DishComponentsDAO dc = FactoryDAOAbs.getFactoryDAO().getDishComponentsDAO();
-        DishComponentsManager dish = new DishComponentsManager(dc);
-        List<String> dishComponentsList = dish.getAllComponents();
+        Map<String, List<DishComponentViewHelper>> dishesComponents = new HashMap<>();
+        HttpSession session = request.getSession();
+        dishesComponents.putAll((Map<String, List<DishComponentViewHelper>>) session.getAttribute("dishesComponents"));
+
+        List<DishComponentViewHelper> dishComponents = dishesComponents.get(pickedDish);
+        request.setAttribute("dishName", pickedDish);
+        request.setAttribute("dishComponents",dishComponents);
         
-        request.setAttribute("dishComponents", dishComponentsList);
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/dishDetails.jsp");
         dispatcher.forward(request, response);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

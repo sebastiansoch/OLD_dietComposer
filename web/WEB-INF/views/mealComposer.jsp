@@ -17,17 +17,27 @@
     <body>
         <jsp:include page="_menu.jsp"></jsp:include>
             <h1>Menu Composer</h1>
-        <c:forEach items="${dishMetCondition}" var="dish" varStatus="dishStatus">
-            <c:forEach items="${dish.value}" var="dishComp" varStatus="status">
-                <h2>${dishComp.dishName}</h2>
+
+        <c:forEach items="${dishesMetCondition}" var="dishType">
+            <c:forEach items="${dishType.value}" var="dish" >
+                <form action="dishDetails" method="post">
+                    <input type="hidden" name="pickedDish" value="${dish}" />
+                    <h2>${dish} <input type="submit" value="Szczegóły" /></h2>
+
+                </form>
+
             </c:forEach>
         </c:forEach>
         <p>------------------------------</p>
-        <c:forEach items="${dishNotMetCondition}" var="dish" varStatus="dishStatus">
-            <c:forEach items="${dish.value}" var="dishComp" varStatus="status">
-                <h2>${dishComp.dishName}</h2>
+        <c:forEach items="${dishesNotMetCondition}" var="dishType">
+            <c:forEach items="${dishType.value}" var="dish" >
+                <form action="dishDetails" method="post">
+                    <input type="hidden" name="pickedDish" value="${dish}" />
+                    <h2>${dish} <input type="submit" value="Szczegóły" /></h2>
+
+                </form>
+
             </c:forEach>
         </c:forEach>
-
     </body>
 </html>

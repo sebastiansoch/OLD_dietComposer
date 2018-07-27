@@ -14,11 +14,12 @@ import pl.ssoch.dietcomposer.data.DishItems;
  */
 public class DishComponentViewHelper {
 
-    private final DishItems dishItem;
     private int dishAmount;
     private String dishCompName;
     private String dishCompUnit;
     private double calPerUnit;
+
+    private final DishItems dishItem;
 
     public DishComponentViewHelper(DishItems dishItem) {
         this.dishItem = dishItem;

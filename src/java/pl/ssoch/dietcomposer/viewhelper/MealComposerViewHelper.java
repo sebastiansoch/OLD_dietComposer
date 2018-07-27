@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import pl.ssoch.dietcomposer.dao.FactoryDAOAbs;
 import pl.ssoch.dietcomposer.data.Dish;
+import pl.ssoch.dietcomposer.data.DishItems;
 import pl.ssoch.dietcomposer.data.DishType;
 import pl.ssoch.dietcomposer.services.Menu;
 import pl.ssoch.dietcomposer.services.MenuGenerator;
@@ -21,13 +22,30 @@ import pl.ssoch.dietcomposer.services.MenuGenerator;
  */
 public class MealComposerViewHelper {
 
-    private Map<String, List<DishViewHelper>> dishesMetConditions;
-    private Map<String, List<DishViewHelper>> dishesNotMetConditions;
+    //DishType, List<DishName>
+    private Map<String, List<String>> dishesMetConditions;
+    private Map<String, List<String>> dishesNotMetConditions;
+
+    //DishName, List<DishComponents>
+    private Map<String, List<DishComponentViewHelper>> dishesComponents;
 
     public MealComposerViewHelper(List<DishType> dishTypeList, int calories) {
         dishesMetConditions = new HashMap<>();
         dishesNotMetConditions = new HashMap<>();
+        dishesComponents = new HashMap<>();
         prepareView(dishTypeList, calories);
+    }
+
+    public Map<String, List<String>> getMetConditionsDishesInfo() {
+        return dishesMetConditions;
+    }
+
+    public Map<String, List<String>> getNotMetConditionsDishesInfo() {
+        return dishesNotMetConditions;
+    }
+
+    public Map<String, List<DishComponentViewHelper>> getDishesComponents() {
+        return dishesComponents;
     }
 
     private void prepareView(List<DishType> dishTypeList, int calories) {
@@ -35,27 +53,50 @@ public class MealComposerViewHelper {
         Menu menu = menuGen.createMenu(calories);
 
         for (DishType dishType : dishTypeList) {
-            List<DishViewHelper> dvhMet = new ArrayList<>();
-            
-            for (Dish dish : menu.getMetConditionDishes(dishType)) {
-                dvhMet.add(new DishViewHelper(dish));
-            }
-            dishesMetConditions.put(dishType.toString(), dvhMet);
 
-            List<DishViewHelper> dvhNotMet = new ArrayList<>();
-            for (Dish dish : menu.getNotMetConditionDishes(dishType)) {
-                dvhNotMet.add(new DishViewHelper(dish));
+            List<String> dishesMet = new ArrayList<>();
+            for (Dish dish : menu.getMetConditionDishes(dishType)) {
+                dishesMet.add(dish.getDishName());
+
+                getDishComponents(dish);
             }
-            dishesNotMetConditions.put(dishType.toString(), dvhNotMet);
+            dishesMetConditions.put(convertDishTypeToString(dishType), dishesMet);
+
+            List<String> dishesNotMet = new ArrayList<>();
+            for (Dish dish : menu.getNotMetConditionDishes(dishType)) {
+                dishesNotMet.add(dish.getDishName());
+
+                getDishComponents(dish);
+            }
+            dishesNotMetConditions.put(convertDishTypeToString(dishType), dishesNotMet);
         }
     }
 
-    public Map<String, List<DishViewHelper>> getMetConditionsDishesInfo() {
-        return dishesMetConditions;
+    private void getDishComponents(Dish dish) {
+        List<DishComponentViewHelper> dishComponents = new ArrayList<>();
+        for (DishItems dishItem : dish.getDishItems()) {
+            dishComponents.add(new DishComponentViewHelper(dishItem));
+        }
+        dishesComponents.put(dish.getDishName(), dishComponents);
     }
 
-    public Map<String, List<DishViewHelper>> getNotMetConditionsDishesInfo() {
-        return dishesNotMetConditions;
+    private String convertDishTypeToString(DishType dishType) {
+        switch (dishType) {
+            case BREAKFAST:
+                return "Śniadanie";
+            case SECOND_BREAKFAST:
+                return "Drugie śniadanie";
+            case SOUP:
+                return "Zupa";
+            case MAIN_COURSE:
+                return "Danie główne";
+            case TEA:
+                return "Podwieczorek";
+            case SUPPER:
+                return "Obiad";
+            default:
+                return "Nie znany posiłek";
+        }
     }
 
 }
