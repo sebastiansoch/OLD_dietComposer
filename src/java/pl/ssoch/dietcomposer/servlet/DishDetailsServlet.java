@@ -27,7 +27,7 @@ public class DishDetailsServlet extends MainServlet {
 
     @Override
     protected void run(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String pickedDish = request.getParameter("pickedDish");
+        int pickedDish = Integer.parseInt(request.getParameter("pickedDish"));
         
         Map<String, List<DishComponentViewHelper>> dishesComponents = new HashMap<>();
         HttpSession session = request.getSession();

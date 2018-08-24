@@ -6,6 +6,7 @@
 package pl.ssoch.dietcomposer.dao;
 
 import java.sql.Connection;
+import pl.ssoch.dietcomposer.services.DishManager;
 import pl.ssoch.dietcomposer.services.MenuGenerator;
 import pl.ssoch.dietcomposer.services.MenuGeneratorImpl;
 
@@ -22,6 +23,7 @@ public class FactoryDAOSql implements FactoryDAO {
     private FactoryDAOSql() {
     }
 
+    @Override
     public DishesDAO getDishesDAO() {
         return new DishesDAOSql(connection);
     }
@@ -45,6 +47,11 @@ public class FactoryDAOSql implements FactoryDAO {
     @Override
     public MenuGenerator getMenuGenerator() {
         return new MenuGeneratorImpl(getDishesDAO());
+    }
+    
+    @Override
+    public DishManager getDishManager() {
+        return new DishManager(getDishesDAO());
     }
 
 }

@@ -35,55 +35,61 @@ public class DishesDAOSql implements DishesDAO {
     public List<Dish> getAllDishesForType(DishType dishType) {
         List<Dish> dishes = new ArrayList<>();
 
-        Map<Integer, String> dishesMap = findDishesForType(dishType);
+        List<Integer> dishesId = findDishesIdForType(dishType);
 
-        prepareDishes(dishesMap, dishType, dishes);
+        prepareDishes(dishesId, dishType, dishes);
 
         return dishes;
     }
 
-    private void prepareDishes(Map<Integer, String> dishesMap, DishType dishType, List<Dish> dishes) throws RuntimeException {
-        for (int id : dishesMap.keySet()) {
-            List<DishItems> dishItems = new ArrayList<>();
-
-            String dishComponentName;
-            DishComponentUnit unit;
-            double caloriesPerUnit;
-
-            int amount;
-
-            try {
-                String sqlDI = "SELECT c.name, u.name, c.calories_per_unit, i.amount"
-                        + "	FROM dish_items i"
-                        + " JOIN dishes d ON i.dish_id = d.dish_id"
-                        + " JOIN dish_components c ON c.dish_component_id = i.dish_component_id"
-                        + " JOIN units u ON u.unit_id = c.unit_id"
-                        + " WHERE i.dish_id = ? ";
-
-                PreparedStatement statement = connection.prepareStatement(sqlDI);
-                statement.setInt(1, id);
-                ResultSet rs = statement.executeQuery();
-
-                while (rs.next()) {
-                    DishComponent dc = new DishComponent(rs.getString("c.name"), DishComponentUnit.valueOf(rs.getString("u.name")), rs.getDouble("calories_per_unit"));
-                    dishItems.add(new DishItems(dc, rs.getInt("i.amount")));
-                }
-
-                Dish dish = new Dish(dishesMap.get(id), dishType);
-                dish.setDishItems(dishItems);
-
-                dishes.add(dish);
-            } catch (SQLException ex) {
-                //TODO
-                throw new RuntimeException(ex);
-            }
+    private void prepareDishes(List<Integer> dishesId, DishType dishType, List<Dish> dishes) throws RuntimeException {
+        for (int dishId : dishesId) {
+            Dish dish = prepareDish(dishId, dishType);
+            dishes.add(dish);
         }
     }
 
-    private Map<Integer, String> findDishesForType(DishType dishType) throws RuntimeException {
-        Map<Integer, String> dishes = new HashMap<>();
+    private Dish prepareDish(int dishId, DishType dishType) {
+        String dishName = "";
+        List<DishItems> dishItems = new ArrayList<>();
 
-        String sqlDishes = "SELECT d.dish_id, d.name FROM dishes d"
+        String dishComponentName;
+        DishComponentUnit unit;
+        double caloriesPerUnit;
+
+        int amount;
+
+        try {
+            String sqlDI = "SELECT d.name, c.name, u.name, c.calories_per_unit, i.amount"
+                    + "	FROM dish_items i"
+                    + " JOIN dishes d ON i.dish_id = d.dish_id"
+                    + " JOIN dish_components c ON c.dish_component_id = i.dish_component_id"
+                    + " JOIN units u ON u.unit_id = c.unit_id"
+                    + " WHERE i.dish_id = ? ";
+
+            PreparedStatement statement = connection.prepareStatement(sqlDI);
+            statement.setInt(1, dishId);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                dishName = rs.getString("d.name");
+                DishComponent dc = new DishComponent(rs.getString("c.name"), DishComponentUnit.valueOf(rs.getString("u.name")), rs.getDouble("calories_per_unit"));
+                dishItems.add(new DishItems(dc, rs.getInt("i.amount")));
+            }
+
+            Dish dish = new Dish(dishId, dishName, dishType);
+            dish.setDishItems(dishItems);
+            return dish;
+        } catch (SQLException ex) {
+            //TODO
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private List<Integer> findDishesIdForType(DishType dishType) throws RuntimeException {
+        List<Integer> dishesID = new ArrayList<>();
+
+        String sqlDishes = "SELECT d.dish_id FROM dishes d"
                 + " JOIN dishes_dish_types ddt ON d.dish_id = ddt.dish_id"
                 + " JOIN dish_types t ON t.dish_type_id = ddt.dish_type_id"
                 + " WHERE t.type = ?";
@@ -94,14 +100,14 @@ public class DishesDAOSql implements DishesDAO {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                dishes.put(Integer.parseInt(rs.getString("d.dish_id")), rs.getString("d.name"));
+                dishesID.add(rs.getInt("d.dish_id"));
             }
 
         } catch (SQLException ex) {
             //TODO
             throw new RuntimeException(ex);
         }
-        return dishes;
+        return dishesID;
     }
 
     @Override
@@ -125,4 +131,7 @@ public class DishesDAOSql implements DishesDAO {
         return types;
     }
 
-}
+    @Override
+    public Dish getDishDetails(int id) {
+
+    }

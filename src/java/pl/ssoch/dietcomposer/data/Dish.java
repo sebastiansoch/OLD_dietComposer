@@ -16,11 +16,13 @@ import java.util.Set;
  * @author Seba
  */
 public class Dish {
+    private final int dishID;
     private final String dishName;
     private final Set<DishType> dishTypes;
     private List<DishItems> dishItems;
     
-    public Dish(String dishName, DishType... dishType) {
+    public Dish(int dishID, String dishName, DishType... dishType) {
+        this.dishID = dishID;
         this.dishName = dishName;
         this.dishTypes = new HashSet<>();
         this.dishTypes.addAll(Arrays.asList(dishType));
@@ -34,7 +36,11 @@ public class Dish {
     public void addDishItem(DishItems dishItem) {
         this.dishItems.add(dishItem);
     }
-    
+
+    public int getDishID() {
+        return dishID;
+    }
+
     public String getDishName() {
         return dishName;
     }
@@ -42,4 +48,5 @@ public class Dish {
     public List<DishItems> getDishItems() {
         return dishItems;
     }
+    
 }

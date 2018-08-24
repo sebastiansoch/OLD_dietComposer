@@ -5,6 +5,7 @@
  */
 package pl.ssoch.dietcomposer.dao;
 
+import pl.ssoch.dietcomposer.services.DishManager;
 import pl.ssoch.dietcomposer.services.MenuGenerator;
 
 /**
@@ -19,4 +20,5 @@ public interface FactoryDAO {
 
     MenuGenerator getMenuGenerator();
     
+    DishManager getDishManager();
 }

@@ -16,4 +16,5 @@ import pl.ssoch.dietcomposer.data.DishType;
 public interface DishesDAO {
     List<Dish> getAllDishesForType(DishType dishType);
     List<String> getDishTypes();
+    Dish getDishDetails(int id);
 }

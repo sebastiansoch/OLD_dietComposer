@@ -6,39 +6,31 @@
 package pl.ssoch.dietcomposer.viewhelper;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import pl.ssoch.dietcomposer.dao.FactoryDAOAbs;
 import pl.ssoch.dietcomposer.data.Dish;
 import pl.ssoch.dietcomposer.data.DishItems;
 import pl.ssoch.dietcomposer.data.DishType;
+import pl.ssoch.dietcomposer.services.DishManager;
 import pl.ssoch.dietcomposer.services.Menu;
 import pl.ssoch.dietcomposer.services.MenuGenerator;
 
 /**
  *
- * @author Seba
+ * @author ssoch
  */
-public class MealComposerViewHelper {
+public class DishDetailsViewHelper {
+    //DishName, List<DishComponents>
+    private Map<String, List<DishComponentViewHelper>> dishesComponents;
 
-    //DishType, List<DishName>
-    private List<DishViewHelper> dishesMetConditions;
-    private List<DishViewHelper> dishesNotMetConditions;
-
-    public MealComposerViewHelper(List<DishType> dishTypeList, int calories) {
-        dishesMetConditions = new ArrayList<>();
-        dishesNotMetConditions = new ArrayList<>();
-        prepareView(dishTypeList, calories);
+    public Map<String, List<DishComponentViewHelper>> getDishesComponents() {
+        return dishesComponents;
     }
 
-    public List<DishViewHelper> getMetConditionsDishesInfo() {
-        return dishesMetConditions;
-    }
+    DishManager dishManager = FactoryDAOAbs.getFactoryDAO().getDishManager();
+    String aa = dishManager.getDish(2);
 
-    public List<DishViewHelper> getNotMetConditionsDishesInfo() {
-        return dishesNotMetConditions;
-    }
 
     private void prepareView(List<DishType> dishTypeList, int calories) {
         MenuGenerator menuGen = FactoryDAOAbs.getFactoryDAO().getMenuGenerator();
@@ -47,12 +39,23 @@ public class MealComposerViewHelper {
         for (DishType dishType : dishTypeList) {
 
             for (Dish dish : menu.getMetConditionDishes(dishType)) {
-                dishesMetConditions.add(new DishViewHelper(dishType, dish.getDishID(), dish.getDishName()));
+
+                getDishComponents(dish);
             }
 
             for (Dish dish : menu.getNotMetConditionDishes(dishType)) {
-                dishesNotMetConditions.add(new DishViewHelper(dishType, dish.getDishID(), dish.getDishName()));
+                getDishComponents(dish);
             }
         }
     }
+
+    private void getDishComponents(Dish dish) {
+        List<DishComponentViewHelper> dishComponents = new ArrayList<>();
+        for (DishItems dishItem : dish.getDishItems()) {
+            dishComponents.add(new DishComponentViewHelper(dishItem));
+        }
+        dishesComponents.put(dish.getDishName(), dishComponents);
+    }
+
+    
 }

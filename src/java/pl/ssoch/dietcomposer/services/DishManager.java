@@ -16,15 +16,15 @@ import pl.ssoch.dietcomposer.dao.DishesDAO;
  */
 public class DishManager {
 
-    private DishesDAO dishes;
+    private DishesDAO dishesDAO;
 
-    public DishManager(DishesDAO dishes) {
-        this.dishes = dishes;
+    public DishManager(DishesDAO dishesDAO) {
+        this.dishesDAO = dishesDAO;
     }
 
     public List<String> getAllDishes() {
         ArrayList<String> dishesList = new ArrayList<>();
-//        for (Dish d : dishes.getAllDishes()) {
+//        for (Dish d : dishesDAO.getAllDishes()) {
 //            dishesList.add(d.getDishName());
 //        }
         return dishesList;
@@ -38,6 +38,10 @@ public class DishManager {
     public List<String> findDish(String phrase) {
         //Zwraca dania zawierajace dana fraze
         return null;
+    }
+    
+    public Dish getDishDetails(int id) {
+        return dishesDAO.getDishDetails(id);
     }
 
     public List<Dish> getAllDishesForMeal(String meal) {
