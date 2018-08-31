@@ -6,14 +6,13 @@
 package pl.ssoch.dietcomposer.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import pl.ssoch.dietcomposer.data.DishType;
 import pl.ssoch.dietcomposer.viewhelper.MealComposerViewHelper;
 
@@ -27,14 +26,12 @@ public class MealComposerServlet extends MainServlet {
     @Override
     protected void run(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int calories = Integer.parseInt(request.getParameter("calories"));
-        List<DishType> dishType = new ArrayList<>();
-        dishType.add(DishType.valueOf(request.getParameter("meal")));
-        MealComposerViewHelper mcvh = new MealComposerViewHelper(dishType, calories);
-        
-        HttpSession session = request.getSession();
-        session.setAttribute("dishesComponents", mcvh.getDishesComponents());
-        
+        Double calories = Double.parseDouble(request.getParameter("calories"));
+        DishType dishType = DishType.valueOf(request.getParameter("meal"));
+        Map<DishType, Double> caloriesForType = new HashMap<>();
+        caloriesForType.put(dishType, calories);
+        MealComposerViewHelper mcvh = new MealComposerViewHelper(caloriesForType);
+       
         request.setAttribute("dishesMetCondition", mcvh.getMetConditionsDishesInfo());
         request.setAttribute("dishesNotMetCondition", mcvh.getNotMetConditionsDishesInfo());
         

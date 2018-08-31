@@ -25,7 +25,7 @@
     <body>
         <jsp:include page="_menu.jsp"></jsp:include>
 
-        <h2>Posiłek: ${dishName}</h2>
+        <h2>Posiłek: ${dishDetails.dishName}</h2>
         <table>
             <tr>
                 <th>Składnik</th>
@@ -33,7 +33,7 @@
                 <th>jedn.</th>
                 <th>kal/jedn.</th>
             </tr>
-            <c:forEach items="${dishComponents}" var="dishComp">
+            <c:forEach items="${dishDetails.dishesComponents}" var="dishComp">
                 <tr>
                     <td><b>${dishComp.dishCompName}</b></td>
                     <td>${dishComp.dishAmount}</td>

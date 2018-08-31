@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import pl.ssoch.dietcomposer.data.Dish;
 import pl.ssoch.dietcomposer.dao.DishesDAO;
+import pl.ssoch.dietcomposer.data.DishType;
 
 /**
  *
@@ -30,18 +31,18 @@ public class DishManager {
         return dishesList;
     }
 
-    public String getDish(int id) {
+    public String findDish(int id) {
         //Zwraca konkretne danie
         return null;
     }
 
-    public List<String> findDish(String phrase) {
+    public List<String> findDishes(String phrase) {
         //Zwraca dania zawierajace dana fraze
         return null;
     }
     
-    public Dish getDishDetails(int id) {
-        return dishesDAO.getDishDetails(id);
+    public Dish getDishById(int dishId) {
+        return dishesDAO.getDishById(dishId);
     }
 
     public List<Dish> getAllDishesForMeal(String meal) {

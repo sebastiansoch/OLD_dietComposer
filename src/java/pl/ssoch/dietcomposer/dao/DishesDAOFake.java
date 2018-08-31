@@ -32,6 +32,24 @@ public class DishesDAOFake implements DishesDAO {
         return dishDB.get(dishType);
     }
 
+    @Override
+    public List<String> getDishTypes() {
+        List<String> types = new ArrayList<>();
+        types.add("Sniadanie");
+        types.add("Drugie Sniadanie");
+        types.add("Zupa");
+        types.add("Drugie danie");
+        types.add("Podwieczorek");
+        types.add("Kolacja");
+
+        return types;
+    }
+
+    @Override
+    public Dish getDishById(int dishId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private HashMap< DishType, List< Dish>> prepareDishes() {
         dishDB = new HashMap<>();
         dishDB.putAll(createDishes(DishType.BREAKFAST, getBreakfastData()));
@@ -48,12 +66,12 @@ public class DishesDAOFake implements DishesDAO {
         Map<String, Dish> dishesMap = new HashMap<>();
         for (String[] row : dishData) {
 
-            Dish dish = dishesMap.get(row[0]);
+            Dish dish = dishesMap.get(row[1]);
             if (dish == null) {
-                dish = new Dish(row[0], dishType);
-                dishesMap.put(row[0], dish);
+                dish = new Dish(Integer.parseInt(row[0]), row[1], dishType);
+                dishesMap.put(row[1], dish);
             }
-            dish.addDishItem(new DishItems(new DishComponent(row[1], decodeStringToEnum(row[3]), Double.parseDouble(row[2])), Integer.parseInt(row[4])));
+            dish.addDishItem(new DishItems(new DishComponent(row[2], decodeStringToEnum(row[4]), Double.parseDouble(row[3])), Integer.parseInt(row[5])));
         }
 
         return dishesMap;
@@ -71,76 +89,76 @@ public class DishesDAOFake implements DishesDAO {
 
     private String[][] getBreakfastData() {
         String[][] data = new String[][]{
-            //dish     ,  component      ,      kcal/unit ,  unit , amount
-            {"owsianka", "platki gorske", "3.90", "gram", "100"},
-            {"owsianka", "jogurt", "0.60", "gram", "100"},
-            {"owsianka", "rodzynki", "2.98", "gram", "20"},
-            {"jajecznica z bekonem", "jajka", "70.78", "number", "3"},
-            {"jajecznica z bekonem", "bekon", "67.50", "slice", "2"},
-            {"jajecznica z bekonem", "chleb", "53.75", "slice", "1"},
-            {"jajecznica z bekonem", "masło", "22.05", "gram", "3"}
+            //id,   dish     ,  component      ,      kcal/unit ,  unit , amount
+            {"1",   "owsianka", "platki gorske", "3.90", "gram", "100"},
+            {"1",   "owsianka", "jogurt", "0.60", "gram", "100"},
+            {"1",   "owsianka", "rodzynki", "2.98", "gram", "20"},
+            {"2",   "jajecznica z bekonem", "jajka", "70.78", "number", "3"},
+            {"2",   "jajecznica z bekonem", "bekon", "67.50", "slice", "2"},
+            {"2",   "jajecznica z bekonem", "chleb", "53.75", "slice", "1"},
+            {"2",   "jajecznica z bekonem", "masło", "22.05", "gram", "3"}
         };
         return data;
     }
 
     private String[][] getSecondBreakfastData() {
         String[][] data = new String[][]{
-            //dish    ,                  component ,     kcal ,    unit     , amount
-            {"kanapka", "bułka", "163.20", "number", "1"},
-            {"kanapka", "maslo", "22.05", "gram", "3"},
-            {"kanapka", "ser zolty", "47.10", "slice", "1"},
-            {"kanapka", "szynka", "77.80", "slice", "1"},
-            {"kanapka", "jajko", "70.78", "number", "1"},
-            {"jajecznica z pieczarkami", "jajka", "70.78", "number", "2"},
-            {"jajecznica z pieczarkami", "pieczarki", "0.24", "gram", "15"},
-            {"jajecznica z pieczarkami", "bekon", "67.50", "slice", "2"},
-            {"jajecznica z pieczarkami", "chleb", "53.75", "slice", "1"},
-            {"jajecznica z pieczarkami", "masło", "22.05", "gram", "3"}
+            //id,   dish    ,                  component ,     kcal ,    unit     , amount
+            {"3",   "kanapka", "bułka", "163.20", "number", "1"},
+            {"3",   "kanapka", "maslo", "22.05", "gram", "3"},
+            {"3",   "kanapka", "ser zolty", "47.10", "slice", "1"},
+            {"3",   "kanapka", "szynka", "77.80", "slice", "1"},
+            {"3",   "kanapka", "jajko", "70.78", "number", "1"},
+            {"4",   "jajecznica z pieczarkami", "jajka", "70.78", "number", "2"},
+            {"4",   "jajecznica z pieczarkami", "pieczarki", "0.24", "gram", "15"},
+            {"4",   "jajecznica z pieczarkami", "bekon", "67.50", "slice", "2"},
+            {"4",   "jajecznica z pieczarkami", "chleb", "53.75", "slice", "1"},
+            {"4",   "jajecznica z pieczarkami", "masło", "22.05", "gram", "3"}
         };
         return data;
     }
 
     private String[][] getSoupData() {
         String[][] data = new String[][]{
-            //dish       ,  component       ,  kcal ,  unit , amount
-            {"pomidorowa", "zupa pomidorowa", "11.00", "bowl", "1"},
-            {"pomidorowa", "makaron", "3.77", "gram", "50"},
-            {"pomidorowa", "śmietana 18%", "46.50", "spoon", "1"}
+            //id,   dish       ,  component       ,  kcal ,  unit , amount
+            {"5",   "pomidorowa", "zupa pomidorowa", "11.00", "bowl", "1"},
+            {"5",   "pomidorowa", "makaron", "3.77", "gram", "50"},
+            {"5",   "pomidorowa", "śmietana 18%", "46.50", "spoon", "1"}
         };
         return data;
     }
 
     private String[][] getmainCourseData() {
         String[][] data = new String[][]{
-            //dish       ,  component       ,  kcal ,  unit , amount
-            {"schabowy", "kotlet schabowy", "3.51", "gram", "100"},
-            {"schabowy", "ziemniaki", "0.85", "gram", "200"},
-            {"schabowy", "ogorek kiszony", "7.20", "number", "1"}
+            //id,   dish       ,  component       ,  kcal ,  unit , amount
+            {"6",   "schabowy", "kotlet schabowy", "3.51", "gram", "100"},
+            {"6",   "schabowy", "ziemniaki", "0.85", "gram", "200"},
+            {"6",   "schabowy", "ogorek kiszony", "7.20", "number", "1"}
         };
         return data;
     }
 
     private String[][] getTeaData() {
         String[][] data = new String[][]{
-            //dish            ,  component , kcal ,  unit , amount
-            {"salatka owocowa", "jablko", "90.00", "number", "1"},
-            {"salatka owocowa", "gruszka", "75.00", "number", "1"},
-            {"salatka owocowa", "baban", "116.00", "number", "1"},
-            {"salatka owocowa", "rodzynki", "2.98", "gram", "20"}
+            //id,   dish            ,  component , kcal ,  unit , amount
+            {"7",   "salatka owocowa", "jablko", "90.00", "number", "1"},
+            {"7",   "salatka owocowa", "gruszka", "75.00", "number", "1"},
+            {"7",   "salatka owocowa", "baban", "116.00", "number", "1"},
+            {"7",   "salatka owocowa", "rodzynki", "2.98", "gram", "20"}
         };
         return data;
     }
 
     private String[][] getSupperData() {
         String[][] data = new String[][]{
-            //dish               ,  component , kcal ,  unit , amount
-            {"naleśniki z dzemem", "nalesnik", "170.00", "number", "1"},
-            {"naleśniki z dzemem", "dzem", "38.00", "spoon", "1"},
-            {"kanapka", "bułka", "163.20", "number", "1"},
-            {"kanapka", "maslo", "22.05", "gram", "3"},
-            {"kanapka", "ser zolty", "47.10", "slice", "1"},
-            {"kanapka", "szynka", "77.80", "slice", "2"},
-            {"kanapka", "jajko", "70.78", "number", "1"}
+            //id,   dish               ,  component , kcal ,  unit , amount
+            {"8",   "naleśniki z dzemem", "nalesnik", "170.00", "number", "1"},
+            {"8",   "naleśniki z dzemem", "dzem", "38.00", "spoon", "1"},
+            {"3",   "kanapka", "bułka", "163.20", "number", "1"},
+            {"3",   "kanapka", "maslo", "22.05", "gram", "3"},
+            {"3",   "kanapka", "ser zolty", "47.10", "slice", "1"},
+            {"3",   "kanapka", "szynka", "77.80", "slice", "1"},
+            {"3",   "kanapka", "jajko", "70.78", "number", "1"}
         };
         return data;
     }
@@ -162,18 +180,5 @@ public class DishesDAOFake implements DishesDAO {
             default:
                 throw new RuntimeException("Nie właściwy typ");
         }
-    }
-
-    @Override
-    public List<String> getDishTypes() {
-        List<String> types = new ArrayList<>();
-        types.add("Sniadanie");
-        types.add("Drugie Sniadanie");
-        types.add("Zupa");
-        types.add("Drugie danie");
-        types.add("Podwieczorek");
-        types.add("Kolacja");
-        
-        return types;
     }
 }

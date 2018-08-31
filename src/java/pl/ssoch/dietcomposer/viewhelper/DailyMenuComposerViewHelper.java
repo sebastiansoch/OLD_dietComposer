@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.ssoch.dietcomposer.services;
-
-import java.util.Map;
-import pl.ssoch.dietcomposer.data.DishType;
+package pl.ssoch.dietcomposer.viewhelper;
 
 /**
  *
  * @author ssoch
  */
-public interface MenuGenerator {
-    public Menu createMenu(Map<DishType, Double> caloriesForType);
+public class DailyMenuComposerViewHelper {
+    
 }

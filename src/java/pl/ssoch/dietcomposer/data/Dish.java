@@ -16,11 +16,12 @@ import java.util.Set;
  * @author Seba
  */
 public class Dish {
+
     private final int dishID;
     private final String dishName;
     private final Set<DishType> dishTypes;
     private List<DishItems> dishItems;
-    
+
     public Dish(int dishID, String dishName, DishType... dishType) {
         this.dishID = dishID;
         this.dishName = dishName;
@@ -37,7 +38,7 @@ public class Dish {
         this.dishItems.add(dishItem);
     }
 
-    public int getDishID() {
+    public int getDishId() {
         return dishID;
     }
 
@@ -48,5 +49,5 @@ public class Dish {
     public List<DishItems> getDishItems() {
         return dishItems;
     }
-    
+
 }

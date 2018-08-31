@@ -26,52 +26,45 @@ public class DailyMenuComposerServlet extends MainServlet {
     protected void run(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         prepareDailyMenu(req);
-        
+
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/WEB-INF/views/dailyMenuComposer.jsp");
         dispatcher.include(req, resp);
+
     }
 
     private void prepareDailyMenu(HttpServletRequest req) {
         int calories = Integer.parseInt(req.getParameter("calories"));
-        
-        Map<Enum, Boolean> chosenDishes = new HashMap<>();
-        
+
+        Map<DishType, Double> caloriesForType = new HashMap<>();
         if (req.getParameter("breakfast") != null) {
-            chosenDishes.put(DishType.BREAKFAST, true );
-        } else {
-            chosenDishes.put(DishType.BREAKFAST, false );
+            Double cal = calories * (Double.parseDouble(req.getParameter("cal_breakfast")) / 100);
+            caloriesForType.put(DishType.BREAKFAST, cal);
         }
-               
+
         if (req.getParameter("second_breakfast") != null) {
-            chosenDishes.put(DishType.SECOND_BREAKFAST, true );
-        } else {
-            chosenDishes.put(DishType.SECOND_BREAKFAST, false );
+            Double cal = calories * (Double.parseDouble(req.getParameter("cal_breakfast")) / 100);
+            caloriesForType.put(DishType.SECOND_BREAKFAST, cal);
         }
 
         if (req.getParameter("soup") != null) {
-            chosenDishes.put(DishType.SOUP, true );
-        } else {
-            chosenDishes.put(DishType.SOUP, false );
+            Double cal = calories * (Double.parseDouble(req.getParameter("cal_breakfast")) / 100);
+            caloriesForType.put(DishType.SOUP, cal);
         }
 
         if (req.getParameter("main_course") != null) {
-            chosenDishes.put(DishType.MAIN_COURSE, true );
-        } else {
-            chosenDishes.put(DishType.MAIN_COURSE, false );
+            Double cal = calories * (Double.parseDouble(req.getParameter("cal_breakfast")) / 100);
+            caloriesForType.put(DishType.MAIN_COURSE, cal);
         }
 
         if (req.getParameter("tea") != null) {
-            chosenDishes.put(DishType.TEA, true );
-        } else {
-            chosenDishes.put(DishType.TEA, false );
+            Double cal = calories * (Double.parseDouble(req.getParameter("cal_breakfast")) / 100);
+            caloriesForType.put(DishType.TEA, cal);
         }
 
         if (req.getParameter("supper") != null) {
-            chosenDishes.put(DishType.SUPPER, true );
-        } else {
-            chosenDishes.put(DishType.SUPPER, false );
+            Double cal = calories * (Double.parseDouble(req.getParameter("cal_breakfast")) / 100);
+            caloriesForType.put(DishType.SUPPER, cal);
         }
-        
     }
 
 }

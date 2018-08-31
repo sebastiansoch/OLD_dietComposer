@@ -5,6 +5,7 @@
  */
 package pl.ssoch.dietcomposer.dao;
 
+import pl.ssoch.dietcomposer.services.DishManager;
 import pl.ssoch.dietcomposer.services.MenuGenerator;
 import pl.ssoch.dietcomposer.services.MenuGeneratorImpl;
 
@@ -27,5 +28,10 @@ public class FactoryDAOFake implements FactoryDAO {
     @Override
     public MenuGenerator getMenuGenerator() {
         return new MenuGeneratorImpl(getDishesDAO());
+    }
+
+    @Override
+    public DishManager getDishManager() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

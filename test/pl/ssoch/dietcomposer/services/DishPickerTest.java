@@ -17,6 +17,7 @@ import pl.ssoch.dietcomposer.data.Dish;
 import pl.ssoch.dietcomposer.data.DishComponent;
 import pl.ssoch.dietcomposer.data.DishComponentUnit;
 import pl.ssoch.dietcomposer.data.DishItems;
+import pl.ssoch.dietcomposer.data.DishType;
 
 /**
  *
@@ -54,18 +55,18 @@ public class DishPickerTest {
     private List<Dish> getDishes() {
         List<Dish> dishes = new ArrayList<>();
 
-        Dish owsianka = new Dish("owsianka");
+        Dish owsianka = new Dish(1, "owsianka", DishType.BREAKFAST);
         owsianka.setDishItems(getDishItems("owsianka"));
         dishes.add(owsianka);
 
-        Dish jajecznica = new Dish("jajecznia na boczku");
+        Dish jajecznica = new Dish(10, "jajecznia na boczku", DishType.SUPPER);
         jajecznica.setDishItems(getDishItems("aa"));
         dishes.add(jajecznica);
         
         
-        dishes.add(new Dish("sok pomaranczowy"));
-        dishes.add(new Dish("herbata"));
-        dishes.add(new Dish("kawa"));
+        dishes.add(new Dish(11, "sok pomaranczowy", DishType.BREAKFAST, DishType.SECOND_BREAKFAST, DishType.SUPPER));
+        dishes.add(new Dish(12, "herbata", DishType.BREAKFAST, DishType.SECOND_BREAKFAST, DishType.TEA, DishType.SUPPER));
+        dishes.add(new Dish(13, "kawa", DishType.BREAKFAST, DishType.SECOND_BREAKFAST, DishType.TEA));
 
         return dishes;
     }

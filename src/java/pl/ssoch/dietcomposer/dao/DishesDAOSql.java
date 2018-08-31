@@ -10,9 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import pl.ssoch.dietcomposer.data.Dish;
 import pl.ssoch.dietcomposer.data.DishComponent;
 import pl.ssoch.dietcomposer.data.DishComponentUnit;
@@ -42,6 +40,33 @@ public class DishesDAOSql implements DishesDAO {
         return dishes;
     }
 
+    @Override
+    public List<String> getDishTypes() {
+        List<String> types = new ArrayList<>();
+
+        String sql = "SELECT *  FROM dish_types";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                types.add(rs.getString("type"));
+            }
+
+        } catch (SQLException ex) {
+            //TODO
+            throw new RuntimeException(ex);
+        }
+
+        return types;
+    }
+
+    @Override
+    public Dish getDishById(int dishId) {
+        List<DishType> dishTypes = findDishTypesForDishId(dishId);
+        return prepareDish(dishId, dishTypes);
+    }
+
     private void prepareDishes(List<Integer> dishesId, DishType dishType, List<Dish> dishes) throws RuntimeException {
         for (int dishId : dishesId) {
             Dish dish = prepareDish(dishId, dishType);
@@ -50,6 +75,12 @@ public class DishesDAOSql implements DishesDAO {
     }
 
     private Dish prepareDish(int dishId, DishType dishType) {
+        List<DishType> dishTypeList = new ArrayList<>();
+        dishTypeList.add(dishType);
+        return prepareDish(dishId, dishTypeList);
+    }
+    
+    private Dish prepareDish(int dishId, List<DishType> dishType) {
         String dishName = "";
         List<DishItems> dishItems = new ArrayList<>();
 
@@ -77,7 +108,10 @@ public class DishesDAOSql implements DishesDAO {
                 dishItems.add(new DishItems(dc, rs.getInt("i.amount")));
             }
 
-            Dish dish = new Dish(dishId, dishName, dishType);
+            DishType dishTypeArray[] = new DishType[dishType.size()];
+            dishTypeArray = dishType.toArray(dishTypeArray);
+           
+            Dish dish = new Dish(dishId, dishName, dishTypeArray);
             dish.setDishItems(dishItems);
             return dish;
         } catch (SQLException ex) {
@@ -110,28 +144,26 @@ public class DishesDAOSql implements DishesDAO {
         return dishesID;
     }
 
-    @Override
-    public List<String> getDishTypes() {
-        List<String> types = new ArrayList<>();
-
-        String sql = "SELECT *  FROM dish_types";
+    private List<DishType> findDishTypesForDishId(int dishId) {
+        List<DishType> dishTypes = new ArrayList<>();
+        
+        String sqlTypes = "SELECT t.type FROM dish_types t"
+                + " JOIN dishes_dish_types ddt ON t.dish_type_id = ddt.dish_type_id"
+                + " WHERE ddt.dish_id = ?";
+        
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery(sql);
-
+            PreparedStatement statement = connection.prepareStatement(sqlTypes);
+            statement.setInt(1, dishId);
+            ResultSet rs = statement.executeQuery();
+            
             while (rs.next()) {
-                types.add(rs.getString("type"));
+                dishTypes.add(DishType.valueOf(rs.getString("t.type")));
             }
-
+            
         } catch (SQLException ex) {
             //TODO
             throw new RuntimeException(ex);
         }
-
-        return types;
+        return dishTypes;
     }
-
-    @Override
-    public Dish getDishDetails(int id) {
-
-    }
+}

@@ -4,7 +4,7 @@
     Author     : Seba
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -20,18 +20,39 @@
 
         <h3>Skomponuj dzienne menu</h3>
         <form action="dailyMenuComposer">
-            Wybierz ilość posiłki w ciągu dnia:<br />
-            <ul style="list-style-type: none">
-                <li><input type="checkbox" name="breakfast" checked="checked" />Śniadanie</li>
-                <li><input type="checkbox" name="second_breakfast" />Drugie śniadanie</li>
-                <li><input type="checkbox" name="soup" />Zupa</li>
-                <li><input type="checkbox" name="main_course" checked="checked" />Danie główne</li>
-                <li><input type="checkbox" name="tea" />Podwieczorek / Przekąska</li>
-                <li><input type="checkbox" name="supper" checked="checked" />Kolacja</li>
-            </ul>
-            Ilość kalorii na dzień:
+            <b>Ilość kalorii na dzień:</b>
             <input type="number" name="calories" /><br />
-            <input type="submit" name="Generuj" />
+            <table >
+                <tr>
+                    <th colspan="2">Wybierz ilość posiłki w ciągu dnia oraz przydziel procent kalorii dla poszczególnych posiłków</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul style="list-style-type: none">
+                            <li><input type="checkbox" name="breakfast" checked="checked" />Śniadanie</li>
+                            <li><input type="checkbox" name="second_breakfast" />Drugie śniadanie</li>
+                            <li><input type="checkbox" name="soup" />Zupa</li>
+                            <li><input type="checkbox" name="main_course" checked="checked" />Danie główne</li>
+                            <li><input type="checkbox" name="tea" />Podwieczorek / Przekąska</li>
+                            <li><input type="checkbox" name="supper" checked="checked" />Kolacja</li>
+                        </ul>
+
+                    </td>
+                    <td>
+                        <ul style="list-style-type: none">
+                            <li><input type="number" name="cal_breakfast" min = "0" max="100" value="0" />%</li>
+                            <li><input type="number" name="cal_second_breakfast"  min = "0" max="100" value="0" />%</li>
+                            <li><input type="number" name="cal_soup"  min = "0" max="100" value="0" />%</li>
+                            <li><input type="number" name="cal_main_course" min = "0" max="100" value="0" />%</li>
+                            <li><input type="number" name="cal_tea"  min = "0" max="100" value="0" />%</li>
+                            <li><input type="number" name="cal_supper" min = "0" max="100" value="0" />%</li>
+                        </ul>
+
+                    </td>
+                </tr>
+
+            </table>
+            <input type="submit" value="Generuj" />
         </form>
         
         <h3>Skomponuj konkretny posiłek</h3>

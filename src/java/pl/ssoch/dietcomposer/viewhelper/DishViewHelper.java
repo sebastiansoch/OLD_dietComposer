@@ -14,10 +14,11 @@ import pl.ssoch.dietcomposer.data.DishType;
 public class DishViewHelper {
 
     private String dishType;
+    private int dishTypeId;
     private int dishId;
     private String dishName;
 
-    public DishViewHelper(DishType dishType, int dishId, String dishName) {
+    public DishViewHelper(int dishId, String dishName, DishType dishType) {
         this.dishType = convertDishTypeToString(dishType);
         this.dishId = dishId;
         this.dishName = dishName;
