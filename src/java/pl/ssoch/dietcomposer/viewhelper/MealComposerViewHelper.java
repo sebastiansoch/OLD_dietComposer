@@ -7,6 +7,7 @@ package pl.ssoch.dietcomposer.viewhelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import pl.ssoch.dietcomposer.dao.FactoryDAOAbs;
 import pl.ssoch.dietcomposer.data.Dish;
 import pl.ssoch.dietcomposer.data.DishType;
@@ -23,7 +24,7 @@ public class MealComposerViewHelper {
     private List<DishViewHelper> dishesMetConditions;
     private List<DishViewHelper> dishesNotMetConditions;
 
-    public MealComposerViewHelper(caloriesForType) {
+    public MealComposerViewHelper(Map<DishType, Double> caloriesForType) {
         dishesMetConditions = new ArrayList<>();
         dishesNotMetConditions = new ArrayList<>();
         prepareView(caloriesForType);
@@ -37,16 +38,19 @@ public class MealComposerViewHelper {
         return dishesNotMetConditions;
     }
 
-    private void prepareView(caloriesForTypes) {
+    private void prepareView(Map<DishType, Double> caloriesForTypes) {
         MenuGenerator menuGen = FactoryDAOAbs.getFactoryDAO().getMenuGenerator();
-        Menu menu = menuGen.createMenu(caloriesForType);
+        Menu menu = menuGen.createMenu(caloriesForTypes);
 
-        for (Dish dish : menu.getMetConditionDishes(dishType)) {
-            dishesMetConditions.add(new DishViewHelper(dish.getDishId(), dish.getDishName(), dishType));
-        }
+        for (DishType dt : caloriesForTypes.keySet()) {
 
-        for (Dish dish : menu.getNotMetConditionDishes(dishType)) {
-            dishesNotMetConditions.add(new DishViewHelper(dish.getDishId(), dish.getDishName(), dishType));
+            for (Dish dish : menu.getMetConditionDishes(dt)) {
+                dishesMetConditions.add(new DishViewHelper(dish.getDishId(), dish.getDishName(), dt));
+            }
+
+            for (Dish dish : menu.getNotMetConditionDishes(dt)) {
+                dishesNotMetConditions.add(new DishViewHelper(dish.getDishId(), dish.getDishName(), dt));
+            }
         }
     }
 }

@@ -14,14 +14,16 @@
     </head>
     <body>
         <jsp:include page="_menu.jsp"></jsp:include>
-        <c:forEach items="${dishMetCondition}" var="dishType">
-            ${dishType}
+        <c:forEach items="${dishesMetCondition}" var="dish">
+            <input type="hidden" name="pickedDish" value="${dish.dishId}" />
+            <h2>${dish.dishName} <input type="submit" value="Szczegóły" /></h2>
         </c:forEach>
-        
+
         ----------------------------------------------------
         
-        <c:forEach items="${dishesNotMetConditions}" var="dishType">
-            ${dishType}
+        <c:forEach items="${dishesNotMetCondition}" var="dish">
+            <input type="hidden" name="pickedDish" value="${dish.dishId}" />
+            <h2>${dish.dishName} <input type="submit" value="Szczegóły" /></h2>
         </c:forEach>
     </body>
 </html>
