@@ -19,7 +19,7 @@ public class DishViewHelper {
     private String dishName;
 
     public DishViewHelper(int dishId, String dishName, DishType dishType) {
-        this.dishType = convertDishTypeToString(dishType);
+        this.dishType = dishType.getName();
         this.dishId = dishId;
         this.dishName = dishName;
     }
@@ -35,24 +35,4 @@ public class DishViewHelper {
     public String getDishName() {
         return dishName;
     }
-
-    private String convertDishTypeToString(DishType dishType) {
-        switch (dishType) {
-            case BREAKFAST:
-                return "Śniadanie";
-            case SECOND_BREAKFAST:
-                return "Drugie śniadanie";
-            case SOUP:
-                return "Zupa";
-            case MAIN_COURSE:
-                return "Danie główne";
-            case TEA:
-                return "Podwieczorek";
-            case SUPPER:
-                return "Obiad";
-            default:
-                return "Nie znany posiłek";
-        }
-    }
-
 }

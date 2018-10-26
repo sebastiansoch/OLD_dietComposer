@@ -55,7 +55,7 @@
             <input type="submit" value="Generuj" />
         </form>
         
-        <h3>Skomponuj konkretny posiłek</h3>
+<!--        <h3>Skomponuj konkretny posiłek</h3>
         <form action="mealComposer">
             Wybierz posiłek :
             <select name="meal">
@@ -67,7 +67,7 @@
             Wybierz ilość kalorii na posiłek: 
             <input type="number" name="calories" /><br />
             <input type="submit" value="Generuj" />
-        </form>
+        </form>-->
 
     </body>
 </html>

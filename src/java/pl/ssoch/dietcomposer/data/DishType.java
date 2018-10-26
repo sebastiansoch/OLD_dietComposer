@@ -10,10 +10,22 @@ package pl.ssoch.dietcomposer.data;
  * @author ssoch
  */
 public enum DishType {
-    BREAKFAST,
-    SECOND_BREAKFAST,
-    SOUP,
-    MAIN_COURSE,
-    TEA,
-    SUPPER
+    BREAKFAST("Śniadanie"),
+    SECOND_BREAKFAST("Drugie śniadanie"),
+    SOUP("Zupa"),
+    MAIN_COURSE("Danie główne"),
+    TEA("Podwieczorek"),
+    SUPPER("Obiad / Kolacja"),
+    NOTDEFINED("Nie znany posiłek");
+    
+    private String name;
+    
+    private DishType(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
 }

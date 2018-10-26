@@ -10,10 +10,20 @@ package pl.ssoch.dietcomposer.data;
  * @author Seba
  */
 public enum DishComponentUnit {
-    GRAM,
-    NUMBER,
-    GLASS,
-    SLICE,
-    BOWL,
-    SPOON
+    GRAM("gram"),
+    NUMBER("sztuk"),
+    GLASS("szklanka"),
+    SLICE("plasterek"),
+    BOWL("miska"),
+    SPOON("łyżka");
+    
+    private String name;
+    
+    private DishComponentUnit(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
